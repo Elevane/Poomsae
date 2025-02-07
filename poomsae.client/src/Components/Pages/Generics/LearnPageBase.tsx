@@ -4,7 +4,6 @@ import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/
 import { Link } from 'react-router';
 import HeaderFragment from "../../Fragments/HeaderFragment";
 
-
 const {  Content, Footer, Sider } = Layout;
 
 
@@ -28,10 +27,10 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
     },
 );
 export interface SportsPageBaseProps {
-    subComp: React.ReactNode
+    children: React.ReactNode
 }
 
-const SportsPageBase: React.FC<SportsPageBaseProps> = ({ subComp }) => {
+const LearnPageBase: React.FC<SportsPageBaseProps> = ({ children }) => {
 
     const {
         token: { colorBgContainer, borderRadiusLG },
@@ -41,11 +40,10 @@ const SportsPageBase: React.FC<SportsPageBaseProps> = ({ subComp }) => {
     return (
         <Layout className="app">
             <HeaderFragment />
-                {/*<HomeContextFragment subComp={subComp} />*/}
                 <Content style={{ padding: '0 48px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item>List</Breadcrumb.Item>
+                        <Breadcrumb.Item>Sports</Breadcrumb.Item>
                         <Breadcrumb.Item>App</Breadcrumb.Item>
                     </Breadcrumb>
                     <Layout
@@ -57,14 +55,14 @@ const SportsPageBase: React.FC<SportsPageBaseProps> = ({ subComp }) => {
                                 items={items2}
                             />
                         </Sider>
-                    <Content style={{ padding: '0 24px', minHeight: 280 }}>{subComp}</Content>
+                    <Content style={{ padding: '0 24px', minHeight: 280 }}>{children}</Content>
                     </Layout>
                 </Content>
             <Footer style={{ textAlign: 'center' }}>
-                Poomsae ©{new Date().getFullYear()} Created by  <Link to="https://github.com/Elevane" target="_blank">AUBRY Bastien</Link>
+                Poomsae ï¿½{new Date().getFullYear()} Created by  <Link to="https://github.com/Elevane" target="_blank">AUBRY Bastien</Link>
                 </Footer>
             </Layout>
     );
 };
 
-export default SportsPageBase;
+export default LearnPageBase;

@@ -1,10 +1,10 @@
 import React from "react"
-import SportsPageBase from "./Generics/SportsPageBase"
+import LearnPageBase from "./Generics/LearnPageBase"
 
 
 const Dashboard: React.FC = () => {
     return (
-        <SportsPageBase>dashboard</SportsPageBase>
+        <LearnPageBase><Dashboard /></LearnPageBase>
     )
 }
 

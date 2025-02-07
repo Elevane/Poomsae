@@ -1,7 +1,7 @@
 import React from 'react';
 import Dashboard from './Components/Pages/DashBoard';
-import Home from './Components/Pages/Generics/SportsPageBase';
-import { Route, Router, Routes } from 'react-router';
+import { Route,  Routes } from 'react-router';
+import Hub from './Components/Pages/Hub';
 
 
 const App: React.FC = () => {
@@ -9,7 +9,8 @@ const App: React.FC = () => {
     return (
        
             <Routes>
-                <Route path="/" element={<Dashboard />}></Route>
+                <Route path="/learn" element={<Dashboard />}></Route>
+                <Route path="/hub" element={<Hub />}></Route>
             </Routes>
         
     );
