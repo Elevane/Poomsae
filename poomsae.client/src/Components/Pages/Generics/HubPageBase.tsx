@@ -6,7 +6,7 @@ import HeaderFragment from "../../Fragments/HeaderFragment";
 const {  Footer,  } = Layout;
 
 export interface HubPageBaseProps {
-    children: React.ReactNode
+    children?: React.ReactNode
 }
 
 const HubPageBase: React.FC<HubPageBaseProps> = ({ children }) => {

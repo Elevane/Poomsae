@@ -1,12 +1,18 @@
-import React from "react";
-import { Breadcrumb, Layout, Menu, MenuProps, theme } from "antd";
+import React, { useState } from "react";
+import { Breadcrumb, Layout, Menu, MenuProps, Skeleton, theme } from "antd";
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router';
 import HeaderFragment from "../../Fragments/HeaderFragment";
+import { useEffect } from "react";
+import { ItemType } from "antd/es/menu/interface";
+import userSportsState from "../../../state/userSportsState";
+import { useRecoilState } from "recoil";
 
 const {  Content, Footer, Sider } = Layout;
 
-
+export interface SportsPageBaseProps {
+    children?: React.ReactNode
+}
 const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
     (icon, index) => {
         const key = String(index + 1);
@@ -26,11 +32,19 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
         };
     },
 );
-export interface SportsPageBaseProps {
-    children: React.ReactNode
-}
-
 const LearnPageBase: React.FC<SportsPageBaseProps> = ({ children }) => {
+    const [sports, setSports] = useRecoilState(userSportsState) 
+    const [menuItems, setMenuItems] = useState<ItemType[]>([])
+    
+    useEffect(() => {
+       
+    }, [sports])
+
+    const skeletonItems: MenuProps["items"] = new Array(4).fill(null).map((_, index) => ({
+        key: `skeleton-${index}`,
+        label: <Skeleton.Button active size="small" style={{ width: "80vh" }} />,
+        disabled: true, // Empêche l'interaction avec le menu pendant le chargement
+    }));
 
     const {
         token: { colorBgContainer, borderRadiusLG },
@@ -52,7 +66,7 @@ const LearnPageBase: React.FC<SportsPageBaseProps> = ({ children }) => {
                         <Sider style={{ background: colorBgContainer }} width={200}>
                             <Menu
                                 mode="inline"
-                                items={items2}
+                                items={menuItems.length > 0 ? menuItems : skeletonItems}
                             />
                         </Sider>
                     <Content style={{ padding: '0 24px', minHeight: 280 }}>{children}</Content>

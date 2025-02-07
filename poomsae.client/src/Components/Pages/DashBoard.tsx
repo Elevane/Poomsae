@@ -4,7 +4,7 @@ import LearnPageBase from "./Generics/LearnPageBase"
 
 const Dashboard: React.FC = () => {
     return (
-        <LearnPageBase><Dashboard /></LearnPageBase>
+        <LearnPageBase></LearnPageBase>
     )
 }
 
