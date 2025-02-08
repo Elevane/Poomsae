@@ -5,8 +5,6 @@ import { Link } from 'react-router';
 import HeaderFragment from "../../Fragments/HeaderFragment";
 import { useEffect } from "react";
 import { ItemType } from "antd/es/menu/interface";
-import userSportsState from "../../../state/userSportsState";
-import { useRecoilState } from "recoil";
 
 const {  Content, Footer, Sider } = Layout;
 
@@ -33,12 +31,12 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
     },
 );
 const LearnPageBase: React.FC<SportsPageBaseProps> = ({ children }) => {
-    const [sports, setSports] = useRecoilState(userSportsState) 
+    //const [sports, setSports] = useRecoilState(userSportsState) 
     const [menuItems, setMenuItems] = useState<ItemType[]>([])
     
     useEffect(() => {
        
-    }, [sports])
+    }, [])
 
     const skeletonItems: MenuProps["items"] = new Array(4).fill(null).map((_, index) => ({
         key: `skeleton-${index}`,
