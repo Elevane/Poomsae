@@ -17,6 +17,9 @@
 mono_crash.*
 
 # Build results
+poomsae.client/obj/
+poomsae.client/bin/
+
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
