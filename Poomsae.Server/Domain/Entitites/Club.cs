@@ -4,6 +4,6 @@ namespace Poomsae.Server.Domain.Entitites
 {
     public class Club : GenericParentEntity<Sport>
     {
-        public User Master { get; set; }
+        public User? Master { get; set; }
     }
 }

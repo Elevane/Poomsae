@@ -9,9 +9,9 @@ namespace Poomsae.Server.Domain.Entitites
         public bool IsConfirmed { get; set; }
         public string Password { get; set; }
 
-        public List<Sport> Sports { get; set; }
-        public Club Club { get; set; }
-        public User Master { get; set; }
+        public List<Sport>? Sports { get; set; }
+        public Club? Club { get; set; }
+        public User? Master { get; set; }
 
         public List<User> Students { get; set; }
 

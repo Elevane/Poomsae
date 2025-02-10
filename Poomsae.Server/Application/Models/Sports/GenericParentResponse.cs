@@ -1,6 +1,6 @@
-﻿namespace Poomsae.Server.Domain.Entitites.Base
+﻿namespace Poomsae.Server.Application.Models.Sports
 {
-    public class GenericParentEntity<T> : BaseEntity where T : class
+    public class GenericParentResponse<T> where T : class 
     {
         public string Name { get; set; }
 
@@ -10,7 +10,7 @@
         /// Créateur fonctionnel de l'entitié, n'a aucun pouvoir sur l'entité autre que sur son
         /// existance sur le site.
         /// </summary>
-        public User Creator { get; set; }
+        public UserResponse Creator { get; set; }
 
         public bool Validated { get; set; }
 

@@ -12,7 +12,7 @@ using Poomsae.Server.Infrastructure.Persistence;
 namespace Poomsae.Server.Migrations
 {
     [DbContext(typeof(ApplicationSqlContext))]
-    [Migration("20250210094042_InitialCreate")]
+    [Migration("20250210112138_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -39,7 +39,10 @@ namespace Poomsae.Server.Migrations
                     b.Property<int>("CreatorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MasterId")
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MasterId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -48,6 +51,9 @@ namespace Poomsae.Server.Migrations
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("Validated")
+                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
 
@@ -72,15 +78,24 @@ namespace Poomsae.Server.Migrations
                     b.Property<int>("CreatorId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
 
                     b.Property<int?>("SportId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("Validated")
+                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
 
@@ -148,12 +163,18 @@ namespace Poomsae.Server.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("Validated")
+                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
 
@@ -181,6 +202,9 @@ namespace Poomsae.Server.Migrations
                     b.Property<int?>("KataId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -190,6 +214,9 @@ namespace Poomsae.Server.Migrations
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("Validated")
+                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
 
@@ -208,7 +235,7 @@ namespace Poomsae.Server.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ClubId")
+                    b.Property<int?>("ClubId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -221,7 +248,7 @@ namespace Poomsae.Server.Migrations
                     b.Property<bool>("IsConfirmed")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int>("MasterId")
+                    b.Property<int?>("MasterId")
                         .HasColumnType("int");
 
                     b.Property<string>("Password")
@@ -250,9 +277,7 @@ namespace Poomsae.Server.Migrations
 
                     b.HasOne("Poomsae.Server.Domain.Entitites.User", "Master")
                         .WithMany()
-                        .HasForeignKey("MasterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MasterId");
 
                     b.Navigation("Creator");
 
@@ -315,15 +340,11 @@ namespace Poomsae.Server.Migrations
                 {
                     b.HasOne("Poomsae.Server.Domain.Entitites.Club", "Club")
                         .WithMany()
-                        .HasForeignKey("ClubId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClubId");
 
                     b.HasOne("Poomsae.Server.Domain.Entitites.User", "Master")
                         .WithMany("Students")
-                        .HasForeignKey("MasterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MasterId");
 
                     b.Navigation("Club");
 

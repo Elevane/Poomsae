@@ -4,6 +4,7 @@ using Poomsae.Server.Application.Interfaces;
 using Poomsae.Server.Application.Services;
 using Poomsae.Server.Application.Services.External.Mails;
 using Poomsae.Server.Application.Services.Helpers;
+using Poomsae.Server.Application.Services.Interfaces;
 using Poomsae.Server.Application.Utils.Mails;
 using Poomsae.Server.Application.Utils.Security;
 using Poomsae.Server.Infrastructure.Persistence;
@@ -18,6 +19,17 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+const string appCorsPolicy = "_myAllowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: appCorsPolicy, policy =>
+    {
+        string? AllowedOrigin = builder.Configuration.GetSection("frontUrl").Value ?? Environment.GetEnvironmentVariable("frontUrl");
+        if (AllowedOrigin == null) throw new NullReferenceException($"{nameof(AllowedOrigin)} should not be null in env.");
+        string[] AllowedOrigins = new[] { AllowedOrigin };
+        policy.WithOrigins(AllowedOrigins).AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithExposedHeaders("x-refresh-token");
+    });
+});
 builder.Services.AddDbContext<IApplicationContext, ApplicationSqlContext>(options =>
 {
     string? conString = builder.Configuration
@@ -35,6 +47,7 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<SecurityHelpers>();
 builder.Services.AddScoped<IMailSender, MailJetSender>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ISportsService, SportsService>();
 builder.Services.AddRateLimiter(o =>
 {
     o.OnRejected = (context, cancellationToken) =>
@@ -54,7 +67,7 @@ builder.Services.AddRateLimiter(o =>
   );
 
 var app = builder.Build();
-
+app.UseCors(appCorsPolicy);
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
