@@ -1,13 +1,19 @@
-﻿namespace Poomsae.Server.Domain.Entities
-{
-    public class User
-    {
+﻿using Poomsae.Server.Domain.Entitites.Base;
 
+namespace Poomsae.Server.Domain.Entitites
+{
+    public class User : BaseEntity
+    {
         public int Id { get; set; }
         public string Email { get; set; }
-        public bool IsConfirmed { get; set; }   
+        public bool IsConfirmed { get; set; }
         public string Password { get; set; }
 
+        public List<Sport> Sports { get; set; }
+        public Club Club { get; set; }
+        public User Master { get; set; }
+
+        public List<User> Students { get; set; }
 
         private static char[] CaracteresSpeciaux = {
             '!', '?', ',', ';', ':', '.', '…', '-', '—', '_', '\'', '\"',
@@ -21,13 +27,14 @@
             Password = password;
             IsConfirmed = false;
         }
+
         public static bool isValid(string password)
         {
             return password.Length > 9 && HasCapitalLetter(password) && HasSpecialChar(password) && HasNumber(password);
         }
+
         public static User Create(string email, string password)
         {
-
             return new User(email, password);
         }
 
@@ -48,9 +55,8 @@
             {
                 for (int y = 0; y < CaracteresSpeciaux.Length; y++)
                 {
-                    if ((char)str[i] == CaracteresSpeciaux[y]) count += 1;
+                    if (str[i] == CaracteresSpeciaux[y]) count += 1;
                 }
-
             }
             return count > 0;
         }
@@ -60,7 +66,7 @@
             int count = 0;
             for (int i = 0; i < str.Length; i++)
             {
-                if (Char.IsDigit(str[i])) count += 1;
+                if (char.IsDigit(str[i])) count += 1;
             }
             return count > 0;
         }
@@ -68,6 +74,7 @@
         /*
          * User data cannot be bounded to any irl person
          */
+
         public void Anonymise()
         {
             Email = $"{Id}#############";
@@ -79,5 +86,4 @@
             IsConfirmed = true;
         }
     }
-
 }

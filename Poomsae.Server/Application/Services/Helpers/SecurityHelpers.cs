@@ -1,19 +1,10 @@
-﻿using Poomsae.Server.Application.Utils.Security;
-using Poomsae.Server.Domain.Entities;
-using Mailjet.Client.Resources;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
+using Poomsae.Server.Application.Utils.Security;
 using System.IdentityModel.Tokens.Jwt;
-using System.IO;
-using System.Linq;
-using System.Runtime.Intrinsics.Arm;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Poomsae.Server.Application.Services.Helpers
 {
@@ -22,9 +13,9 @@ namespace Poomsae.Server.Application.Services.Helpers
         private readonly AppSettings _appSettings;
 
         public SecurityHelpers(IOptions<AppSettings> appSettings)
-        { 
-            _appSettings = appSettings.Value; 
-            if (_appSettings == null  || _appSettings.SecretKey == null || _appSettings.Issuer == null || _appSettings.Audience == null || _appSettings.EncryptionKey == null) throw new NullReferenceException("Secret keys should not be null while activating userService");
+        {
+            _appSettings = appSettings.Value;
+            if (_appSettings == null || _appSettings.SecretKey == null || _appSettings.Issuer == null || _appSettings.Audience == null || _appSettings.EncryptionKey == null) throw new NullReferenceException("Secret keys should not be null while activating userService");
         }
 
         public string? generateJwtToken(string email)
@@ -62,6 +53,7 @@ namespace Poomsae.Server.Application.Services.Helpers
             }
             return sBuilder.ToString();
         }
+
         public JwtSecurityToken? ValidateToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -83,10 +75,10 @@ namespace Poomsae.Server.Application.Services.Helpers
 
                 return (JwtSecurityToken)validatedToken;
             }
-            catch {
+            catch
+            {
                 return null;
             }
-           
         }
 
         public string? Encrypt(string toEncryptMessage)
@@ -108,13 +100,14 @@ namespace Poomsae.Server.Application.Services.Helpers
             catch
             {
                 return null;
-            }       
+            }
         }
+
         private System.Security.Cryptography.Aes CreateEncryption()
         {
             SHA256 sha256 = SHA256.Create();
             System.Security.Cryptography.Aes aes = System.Security.Cryptography.Aes.Create();
-            if(_appSettings == null || _appSettings.EncryptionKey == null || _appSettings.SecretKey == null)
+            if (_appSettings == null || _appSettings.EncryptionKey == null || _appSettings.SecretKey == null)
                 throw new NullReferenceException("Appsetings EncryptionKey or secretKey is not corectly set");
             byte[] keyBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(_appSettings.EncryptionKey));
             byte[] ivBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(_appSettings.SecretKey));

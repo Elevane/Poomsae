@@ -1,6 +1,6 @@
-﻿using Poomsae.Server.Application.Utils.Mapping;
-using Poomsae.Server.Domain.Entities;
-using AutoMapper;
+﻿using AutoMapper;
+using Poomsae.Server.Application.Utils.Mapping;
+using Poomsae.Server.Domain.Entitites;
 
 namespace Poomsae.Server.Application.Models.Authentification
 {
@@ -8,7 +8,7 @@ namespace Poomsae.Server.Application.Models.Authentification
     {
         public string? Token { get; set; }
 
-        
+
 
         public void Mapping(Profile profile)
         {

@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Poomsae.Server.Application.Interfaces;
 using Poomsae.Server.Application.Models.Authentification;
 using Poomsae.Server.Application.Models.Errors;
-using Poomsae.Server.Web.Controllers;
 
 namespace Poomsae.Server.Web.Controllers
 {
@@ -21,7 +20,7 @@ namespace Poomsae.Server.Web.Controllers
             return Ok(res.Value);
         }
 
-       
+
         [HttpPost("[action]")]
         public async Task<IActionResult> Login(AuthenticateUserRequest toAuthenticate)
         {

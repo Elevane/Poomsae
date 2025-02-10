@@ -1,11 +1,6 @@
-﻿using Poomsae.Server.Application.Utils.Mapping;
-using Poomsae.Server.Domain.Entities;
-using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using Poomsae.Server.Application.Utils.Mapping;
+using Poomsae.Server.Domain.Entitites;
 
 namespace Poomsae.Server.Application.Models.Authentification
 {

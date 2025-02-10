@@ -1,12 +1,10 @@
-﻿using Poomsae.Server.Application.Models.Authentification;
+﻿using Microsoft.Extensions.Options;
+using Poomsae.Server.Application.Interfaces;
+using Poomsae.Server.Application.Models.Authentification;
 using Poomsae.Server.Application.Models.Errors;
 using Poomsae.Server.Application.Services.Helpers;
 using Poomsae.Server.Application.Utils.Security;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System.Text;
-using Poomsae.Server.Application.Interfaces;
 
 namespace Poomsae.Server.Web.Authentification
 {
@@ -15,7 +13,7 @@ namespace Poomsae.Server.Web.Authentification
         private readonly RequestDelegate _next;
         private readonly AppSettings _appSettings;
 
-        public JwtMiddleware(RequestDelegate next, IOptions<AppSettings> appSettings )
+        public JwtMiddleware(RequestDelegate next, IOptions<AppSettings> appSettings)
         {
             _next = next;
             _appSettings = appSettings.Value;
@@ -34,7 +32,8 @@ namespace Poomsae.Server.Web.Authentification
             try
             {
                 JwtSecurityToken? jwtToken = securityHelpers.ValidateToken(token);
-                if (jwtToken == null) {
+                if (jwtToken == null)
+                {
                     context.Response.StatusCode = 401;
                     await context.Response.WriteAsync("Token not found");
                     await context.Response.CompleteAsync();
@@ -42,10 +41,10 @@ namespace Poomsae.Server.Web.Authentification
                 }
                 var userEmail = jwtToken.Claims.First(x => x.Type == "email").Value;
                 Result<ApplicationUser> usr = userService.Get(userEmail);
-                if(usr.IsFailure) throw new Exception();
+                if (usr.IsFailure) throw new Exception();
                 context.Items["User"] = usr.Value;
                 string? newToken = securityHelpers.generateJwtToken(userEmail);
-                if(newToken == null)
+                if (newToken == null)
                     throw new Exception("Impossible de générer le token rafraichi");
                 context.Response.Headers["x-refresh-token"] = newToken;
             }

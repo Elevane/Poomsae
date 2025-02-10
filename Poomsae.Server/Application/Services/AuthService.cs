@@ -1,15 +1,14 @@
-﻿using Poomsae.Server.Application.Models.Authentification;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Poomsae.Server.Application.Interfaces;
+using Poomsae.Server.Application.Models.Authentification;
 using Poomsae.Server.Application.Models.Errors;
 using Poomsae.Server.Application.Services.External.Mails;
 using Poomsae.Server.Application.Services.Helpers;
-using Poomsae.Server.Domain.Entities;
+using Poomsae.Server.Domain.Entitites;
 using Poomsae.Server.Infrastructure.Persistence;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Poomsae.Server.Application.Interfaces;
 
 namespace Poomsae.Server.Application.Services
 {
@@ -22,19 +21,19 @@ namespace Poomsae.Server.Application.Services
         private readonly IMailSender _mailSender;
         private readonly ApplicationUser? _contextUser;
 
-        public AuthService(IApplicationContext context, IMapper mapper, SecurityHelpers securityHelpers, IHttpContextAccessor contextAccessor, IMailSender mailSender) 
+        public AuthService(IApplicationContext context, IMapper mapper, SecurityHelpers securityHelpers, IHttpContextAccessor contextAccessor, IMailSender mailSender)
         {
             _mailSender = mailSender;
             _contextAccessor = contextAccessor;
             _contextUser = (ApplicationUser?)_contextAccessor.HttpContext?.Items["User"];
-            _securityHelpers = securityHelpers;          
+            _securityHelpers = securityHelpers;
             _context = context;
             _mapper = mapper;
         }
 
         public async Task<Result<RegisteredUser>> AuthenticateUserAsync(AuthenticateUserRequest toAuthenticate)
         {
-            if(toAuthenticate.Password == null)
+            if (toAuthenticate.Password == null)
                 return Result<RegisteredUser>.Failure("credentials", "la requête envoyé est dans un format incorect");
             string hashed = string.Empty;
             hashed = _securityHelpers.GetHash(toAuthenticate.Password);
@@ -43,7 +42,7 @@ namespace Poomsae.Server.Application.Services
             User? exist = await _context.Users.Where(user => user.Email == toAuthenticate.Email && user.Password == hashed).FirstOrDefaultAsync();
             if (exist == null)
                 return Result<RegisteredUser>.Failure("credentials", "Aucun utilisateur trouvé avec l'Email et/ou le mot de passse donné.");
-            if(!exist.IsConfirmed)
+            if (!exist.IsConfirmed)
                 return Result<RegisteredUser>.Failure("credentials", "Account not confirmed");
             RegisteredUser authenticatedUser = _mapper.Map<RegisteredUser>(exist);
             string? token = _securityHelpers.generateJwtToken(exist.Email);
@@ -58,12 +57,12 @@ namespace Poomsae.Server.Application.Services
             if (userToken == null)
                 return Result.Failure("credentials", "Token given is not valid");
             Claim? userMail = userToken.Claims.FirstOrDefault(x => x.Type == "email");
-            if(userMail == null ||userMail.Value == null)
+            if (userMail == null || userMail.Value == null)
                 return Result.Failure("credentials", "Token given is not valid");
             User exist = await _context.Users.FirstAsync(x => x.Email == userMail.Value);
-            if(exist == null)
+            if (exist == null)
                 return Result.Failure("credentials", "The user you're trying to confirm doesn't exist");
-            if(exist.IsConfirmed)
+            if (exist.IsConfirmed)
                 return Result.Failure("credentials", "The account is already confirmed");
             exist.Confirm();
             await _context.SaveChangesAsync();
@@ -72,13 +71,13 @@ namespace Poomsae.Server.Application.Services
 
         public async Task<Result<RegisteredUser>> CreateUserAsync(RegisterUserRequest toRegister)
         {
-            if(toRegister.Password == null || toRegister.Email == null || toRegister.ConfirmPassword == null)
+            if (toRegister.Password == null || toRegister.Email == null || toRegister.ConfirmPassword == null)
                 return Result<RegisteredUser>.Failure("confirmPassword", "La requête est dans un format incorrrect");
             if (toRegister.Password != toRegister.ConfirmPassword)
                 return Result<RegisteredUser>.Failure("confirmPassword", "Les mots de passe ne sont pas identique");
             User? exist = await _context.Users.FirstOrDefaultAsync(user => user.Email == toRegister.Email);
             if (exist != null)
-               return Result<RegisteredUser>.Failure("email", "Adresse email déjà utilisé");        
+                return Result<RegisteredUser>.Failure("email", "Adresse email déjà utilisé");
             if (!User.isValid(toRegister.Password))
                 return Result<RegisteredUser>.Failure("credentials", "Le format du mot de passe ou de l'email est incorrect");
             string hashed = string.Empty;
@@ -86,7 +85,7 @@ namespace Poomsae.Server.Application.Services
             if (hashed == null || hashed == string.Empty)
                 return Result<RegisteredUser>.Failure("credentials", "La création de compte n'a pas fonctionné");
             toRegister.Password = hashed;
-            User toCreate = User.Create(toRegister.Email, toRegister.Password);          
+            User toCreate = User.Create(toRegister.Email, toRegister.Password);
             string? token = _securityHelpers.generateJwtToken(toCreate.Email);
             if (token == null)
                 return Result<RegisteredUser>.Failure("credentials", "La création de compte n'a pas fonctionné");
@@ -94,8 +93,8 @@ namespace Poomsae.Server.Application.Services
 
             await _context.SaveChangesAsync();
             string? confirmToken = _securityHelpers.generateConfirmToken(toCreate.Email);
-            if(confirmToken == null)
-            return Result<RegisteredUser>.Failure("Credentials", "Impossible générer l'utilisateur");
+            if (confirmToken == null)
+                return Result<RegisteredUser>.Failure("Credentials", "Impossible générer l'utilisateur");
             await _mailSender.SendConfirmAsync(toCreate.Email, confirmToken);
             RegisteredUser registered = _mapper.Map<RegisteredUser>(toCreate);
             registered.Token = token;
@@ -103,7 +102,7 @@ namespace Poomsae.Server.Application.Services
         }
 
         public async Task<Result> DeleteOrAnonymise(DeleteUserRequest request)
-        {     
+        {
             User? exist = await _context.Users.Where(user => user.Email == request.Email).FirstOrDefaultAsync();
             if (exist == null)
                 return Result<RegisteredUser>.Failure("credentials", "Aucun utilisateur trouvé avec l'Email et/ou le mot de passse donné.");
@@ -113,7 +112,7 @@ namespace Poomsae.Server.Application.Services
             {
                 _context.Users.Remove(exist);
             }
-           
+
             await _context.SaveChangesAsync();
             return Result.Success();
 
@@ -131,6 +130,6 @@ namespace Poomsae.Server.Application.Services
         }
 
 
-      
+
     }
 }

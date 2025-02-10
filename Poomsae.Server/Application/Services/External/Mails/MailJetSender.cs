@@ -10,9 +10,10 @@ namespace Poomsae.Server.Application.Services.External.Mails
     {
         private readonly MailjetClient _client;
         private readonly MailJetSettings _settings;
-        public MailJetSender(IOptions<MailJetSettings> settings) {
+        public MailJetSender(IOptions<MailJetSettings> settings)
+        {
             _settings = settings.Value;
-            _client = new MailjetClient(_settings.ApiKey, _settings.SecretKey); 
+            _client = new MailjetClient(_settings.ApiKey, _settings.SecretKey);
         }
         public async Task SendConfirmAsync(string email, string token)
         {

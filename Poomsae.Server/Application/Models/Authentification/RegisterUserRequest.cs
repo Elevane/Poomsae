@@ -1,6 +1,6 @@
-﻿using Poomsae.Server.Application.Utils.Mapping;
-using Poomsae.Server.Domain.Entities;
-using AutoMapper;
+﻿using AutoMapper;
+using Poomsae.Server.Application.Utils.Mapping;
+using Poomsae.Server.Domain.Entitites;
 using System.ComponentModel.DataAnnotations;
 
 namespace Poomsae.Server.Application.Models.Authentification

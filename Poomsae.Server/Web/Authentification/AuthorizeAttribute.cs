@@ -1,6 +1,6 @@
-﻿using Poomsae.Server.Application.Models.Authentification;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Poomsae.Server.Application.Models.Authentification;
 
 namespace Poomsae.Server.Web.Authentification
 {
@@ -10,7 +10,7 @@ namespace Poomsae.Server.Web.Authentification
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             ApplicationUser? token = context.HttpContext.Items[key: ContextValues.User] as ApplicationUser;
-             if (token == null)
+            if (token == null)
                 context.Result = new JsonResult(new { Errors = "Unauthorized request" }) { StatusCode = StatusCodes.Status401Unauthorized };
         }
     }

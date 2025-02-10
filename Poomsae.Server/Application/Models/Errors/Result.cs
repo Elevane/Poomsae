@@ -1,10 +1,8 @@
-﻿using CSharpFunctionalExtensions;
-
-namespace Poomsae.Server.Application.Models.Errors
+﻿namespace Poomsae.Server.Application.Models.Errors
 {
-    public class Result<T>: Result where T : class 
+    public class Result<T> : Result where T : class
     {
-        
+
         public T? Value = null;
         public static Result<T> Success(T _result)
         {
@@ -19,7 +17,7 @@ namespace Poomsae.Server.Application.Models.Errors
             return t;
         }
 
-       
+
     }
 
     public class Result
