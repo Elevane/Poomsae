@@ -56,7 +56,7 @@ builder.Services.AddRateLimiter(o =>
         context.HttpContext.Response.WriteAsync("Maxi mum request limit reached.");
         return new ValueTask();
     };
-    o.AddFixedWindowLimiter(policyName: "jofa", options =>
+    o.AddFixedWindowLimiter(policyName: "poomsae", options =>
     {
         options.PermitLimit = 10;
         options.Window = TimeSpan.FromSeconds(5);

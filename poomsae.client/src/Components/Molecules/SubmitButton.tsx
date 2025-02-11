@@ -15,7 +15,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ loading, text, children, st
     <Button
       disabled={loading || disabled}
       style={{
-        ...style, width: "300px", height: "40px", borderRadius: 0, fontSize: "16px", boxShadow: "box-shadow: 0 6px 0 0 rgb(183, 79, 55);"
+        ...style, width: "300px", height: "40px", borderRadius: 0, fontSize: "16px", boxShadow: "box-shadow: 0 6px 0 0 rgb(183, 79, 55)"
       }}
       type="primary"
       htmlType="submit"

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.RateLimiting;
 
 namespace Poomsae.Server.Web.Controllers
 {
-    [EnableRateLimiting("jofa")]
+    [EnableRateLimiting("poomsae")]
     [ApiController]
     [Route("api/[controller]")]
     public class BaseApiController : Controller

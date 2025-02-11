@@ -7,6 +7,7 @@ import { AppUser } from "../../Models/AppModels"
 import { LoginRequest, RegisterRequest } from "../../Models/apiModels"
 import { ApiResult, LoginRegisterResponse } from "../../Models/ApiResult"
 import api from "../Api/Api"
+import ContentType from "../Api/ContentType"
 
 
 const useUserService = () => {
@@ -25,7 +26,7 @@ const useUserService = () => {
     const response: ApiResult<LoginRegisterResponse> = await api.post<LoginRegisterResponse>(`${apiBaseRoute}/auth/login`, content)
     if (!response.failure) {
       saveUser({ isAuthenticated: true, username: content.email, token: response.result?.token })
-      navigate("/")
+      navigate("/hub")
     }
     if (response.failure && response.errors)
       toast.error(response.errors["credentials"])
@@ -35,15 +36,17 @@ const useUserService = () => {
     const response: ApiResult<LoginRegisterResponse> = await api.post<LoginRegisterResponse>(`${apiBaseRoute}/auth/register`, content)
     if (!response.failure) {
       saveUser({ isAuthenticated: true, username: content.email, token: response.result?.token })
-      navigate("/")
+      navigate("/hub")
     }
     if (response.failure && response.errors)
       toast.error(response.errors["email"])
   }
 
+  async function confirmAccount(token: string) {
+    return await api.patch<string>(`${apiBaseRoute}/auth/confirm/${token}`, null, ContentType.json)
+  }
 
 
-
-  return { register, login }
+  return { register, login, confirmAccount }
 }
 export default useUserService

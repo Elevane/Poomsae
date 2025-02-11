@@ -23,7 +23,7 @@ namespace Poomsae.Server.Application.Services.External.Mails
             };
 
             var mail = new TransactionalEmailBuilder()
-                .WithFrom(new SendContact("jofa.supp0rt@gmail.com"))
+                .WithFrom(new SendContact("poomsae.supp0rt@gmail.com"))
                 .WithSubject("Confirma account")
                 .WithHtmlPart($"<h1>Confirm your account</h1><p>Please click on the following link to activate your account : <a href='https://localhost:5173/confirm_password/{token}'>https://localhost:5173/confirm_password/{token}</a></p>")
                 .WithTo(new SendContact(email))

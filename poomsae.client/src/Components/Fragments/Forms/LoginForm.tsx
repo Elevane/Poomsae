@@ -1,10 +1,13 @@
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Form, Input } from "antd"
 import { useNavigate } from "react-router-dom"
 import Link from "antd/es/typography/Link"
 import useUserService from "../../../Hooks/Services/UseUserService"
 import SubmitButton from "../../Molecules/SubmitButton"
+import { useRecoilValue } from "recoil"
+import { authState } from "../../../state/auth"
+import useLocalStorage from "../../../Hooks/useLocalStorage"
 
 type LoginFormInputs = {
     email: string
@@ -12,10 +15,17 @@ type LoginFormInputs = {
     confirmPassword: string
 }
 const LoginForm: React.FC = () => {
+    const localStorage = useLocalStorage()
     const [form] = Form.useForm<LoginFormInputs>()
     const [loading, setLoading] = useState<boolean>(false)
     const userRepository = useUserService()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if (localStorage.GetUser() != null && localStorage.GetUser().isAuthenticated) {
+            navigate("/hub")
+        }
+    }, [])
     const onFinish = async (e: LoginFormInputs) => {
         setLoading(true)
         await userRepository.login({ email: e.email, password: e.password })

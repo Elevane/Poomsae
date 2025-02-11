@@ -37,7 +37,7 @@ namespace Poomsae.Server.Web.Controllers
             if (res.IsFailure)
                 return BadRequest(res.Errors);
             return Ok(request);
-        }
+        }*/
 
         [HttpPatch("[action]/{token}")]
         public async Task<IActionResult> confirm(string token)
@@ -46,7 +46,7 @@ namespace Poomsae.Server.Web.Controllers
             if (res.IsFailure)
                 return BadRequest(res.Errors);
             return Ok(token);
-        }*/
+        }
 
 
     }
