@@ -20,22 +20,18 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-
       - name: Install frontend dependencies
         run: |
           cd ClientApp
           npm install
           npm run build
-
       - name: Build and publish .NET 8
         run: |
           dotnet publish -c Release -o out
-
       - name: Upload artifact (if needed for deployment)
         uses: actions/upload-artifact@v4
         with:
