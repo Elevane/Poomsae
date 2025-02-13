@@ -6,14 +6,16 @@ namespace Poomsae.Server.Domain.Entitites
     {
         public int Id { get; set; }
         public string Email { get; set; }
-        public bool IsConfirmed { get; set; }
+        public bool IsConfirmed { get; set; } = false;
         public string Password { get; set; }
 
-        public List<Sport>? Sports { get; set; }
-        public Club? Club { get; set; }
-        public User? Master { get; set; }
+        public List<UserSport>? Sports { get; set; }
+        public List<UserStep>? Steps { get; set; }
+        public List<UserKata>? Katas { get; set; }
+        public List<UserMovement>? Movement { get; set; }
+        public List<Club>? Clubs { get; set; }
 
-        public List<User> Students { get; set; }
+        public Role Role { get; set; }
 
         private static char[] CaracteresSpeciaux = {
             '!', '?', ',', ';', ':', '.', '…', '-', '—', '_', '\'', '\"',

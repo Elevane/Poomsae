@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Poomsae.Server.Application.Models.Authentification;
 using Poomsae.Server.Application.Models.Errors;
 using Poomsae.Server.Application.Models.Sports;
 using Poomsae.Server.Application.Models.Sports.Requests;
@@ -25,9 +24,20 @@ namespace Poomsae.Server.Application.Services
             _authenticatedUser = _contextAccessor?.HttpContext?.Items["User"] as User;
         }
 
+        public async Task<Result> AddSport(int sportId, int userId)
+        {
+            Sport exist = await _context.Sports.FirstAsync(s => s.Id == sportId);
+            if (exist == null)
+                return Result.Failure("metier", "Le sport à ajouter n'existe pas");
+            UserSport userSport = UserSport.Create(_authenticatedUser, exist);
+            _authenticatedUser.Sports.Add(userSport);
+            await _context.SaveChangesAsync();
+            return Result<Result>.Success();
+        }
+
         public async Task<Result<CreateSportRequest>> Create(CreateSportRequest request, int userId)
         {
-            Sport exist = await _context.Sports.FirstAsync(s => s.Name.ToLower() == request.Name.ToLower() && s.Creator.Id == userId);
+            Sport exist = await _context.Sports.FirstAsync(s => s.Name.ToLower() == request.Name.ToLower());
             if (exist != null)
                 return Result<CreateSportRequest>.Failure("creation", "Un sport existe déjà avec le même nom pour cet utilisateur");
             Sport toCreate = Sport.Create(_authenticatedUser, request.Name, request.Ecole);
@@ -38,7 +48,7 @@ namespace Poomsae.Server.Application.Services
 
         public async Task<Result<List<SportResponse>>> GetSports(int userId)
         {
-            List<Sport> sports = await _context.Sports.Where(s => s.Creator.Id == userId).Include(s => s.SubChildEntityList).ThenInclude(s => s.SubChildEntityList).ThenInclude(s => s.SubChildEntityList).ToListAsync();
+            List<Sport> sports = await _context.Sports.Include(s => s.SubChildEntityList).ThenInclude(s => s.SubChildEntityList).ThenInclude(s => s.SubChildEntityList).ToListAsync();
             List<SportResponse> responses = _mapper.Map<List<SportResponse>>(sports);
             return Result<List<SportResponse>>.Success(responses);
         }

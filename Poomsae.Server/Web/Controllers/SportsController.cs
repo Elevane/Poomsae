@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Poomsae.Server.Application.Models.Authentification;
 using Poomsae.Server.Application.Models.Errors;
 using Poomsae.Server.Application.Models.Sports;
 using Poomsae.Server.Application.Models.Sports.Requests;
 using Poomsae.Server.Application.Services.Interfaces;
-using Poomsae.Server.Web.Authentification;
+using Poomsae.Server.Web.Authentification.Attributes;
 
 namespace Poomsae.Server.Web.Controllers
 {
@@ -28,8 +27,18 @@ namespace Poomsae.Server.Web.Controllers
             return Ok(res.Value);
         }
 
+        [HttpPost("{sportId}")]
+        public async Task<IActionResult> Add(int sportId)
+        {
+            Result res = await _service.AddSport(sportId, (int)ApplicationUser.Id);
+            if (res.IsFailure)
+                return BadRequest(res.Errors);
+            return Ok();
+        }
+
+        [Private]
         [HttpPost]
-        public async Task<IActionResult> GetSports(CreateSportRequest request)
+        public async Task<IActionResult> Create(CreateSportRequest request)
         {
             Result<CreateSportRequest> res = await _service.Create(request, (int)ApplicationUser.Id);
             if (res.IsFailure)

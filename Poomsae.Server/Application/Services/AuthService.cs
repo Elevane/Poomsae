@@ -119,7 +119,7 @@ namespace Poomsae.Server.Application.Services
 
         public Result<User> Get(string email)
         {
-            User user = _context.Users.Include(u => u.Students).Include(u => u.Sports).First(user => user.Email == email);
+            User user = _context.Users.Include(u => u.Sports).First(user => user.Email == email);
             if (user == null)
                 return Result<User>.Failure("credentials", "Impossible de trouver l'utilisateur");
             return Result<User>.Success(user);

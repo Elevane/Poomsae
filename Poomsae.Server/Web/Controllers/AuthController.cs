@@ -9,7 +9,7 @@ namespace Poomsae.Server.Web.Controllers
     {
         private readonly IAuthService _authService;
 
-        public AuthController(IAuthService authService) => _authService = authService;
+        public AuthController(IAuthService authService, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor) => _authService = authService;
 
         [HttpPost("[action]")]
         public async Task<IActionResult> Register(RegisterUserRequest user)
@@ -19,7 +19,6 @@ namespace Poomsae.Server.Web.Controllers
                 return BadRequest(res.Errors);
             return Ok(res.Value);
         }
-
 
         [HttpPost("[action]")]
         public async Task<IActionResult> Login(AuthenticateUserRequest toAuthenticate)
@@ -47,7 +46,5 @@ namespace Poomsae.Server.Web.Controllers
                 return BadRequest(res.Errors);
             return Ok(token);
         }
-
-
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Poomsae.Server.Application.Models.Sports
 {
-    public class GenericParentResponse<T> where T : class 
+    public class GenericParentResponse<T> where T : class
     {
         public string Name { get; set; }
 

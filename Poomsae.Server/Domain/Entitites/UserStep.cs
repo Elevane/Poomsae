@@ -2,8 +2,8 @@
 
 namespace Poomsae.Server.Domain.Entitites
 {
-    public class Step : GenericParentEntity<Movement>
+    public class UserStep : AssociatedUserEntity
     {
-        public int Order { get; set; }
+        public Step Step { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Poomsae.Server.Domain.Entitites.Base
+﻿using Poomsae.Server.Domain.Entitites.Base.Interfaces;
+
+namespace Poomsae.Server.Domain.Entitites.Base
 {
     public class BaseEntity : IBaseEntity
     {

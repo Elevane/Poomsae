@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Poomsae.Server.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using Poomsae.Server.Infrastructure.Persistence;
 namespace Poomsae.Server.Migrations
 {
     [DbContext(typeof(ApplicationSqlContext))]
-    partial class ApplicationSqlContextModelSnapshot : ModelSnapshot
+    [Migration("20250213110457_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

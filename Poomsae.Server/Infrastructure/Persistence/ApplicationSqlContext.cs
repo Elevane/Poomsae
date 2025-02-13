@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Poomsae.Server.Domain.Entitites;
+using Poomsae.Server.Domain.Entitites.Base;
+using Poomsae.Server.Domain.Entitites.Base.Interfaces;
 
 namespace Poomsae.Server.Infrastructure.Persistence
 {
@@ -18,31 +20,77 @@ namespace Poomsae.Server.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<User>().ToTable("users");
+            //User
+            builder.Entity<User>().ToTable("User");
             builder.Entity<User>().HasKey(x => x.Id);
-            builder.Entity<User>().HasOne(u => u.Club);
-            builder.Entity<User>().HasOne<User>(u => u.Master).WithMany(u => u.Students);
-            builder.Entity<Sport>().ToTable("sports");
+            builder.Entity<User>().HasMany<Club>(u => u.Clubs)
+                .WithMany(c => c.Students)
+                .UsingEntity<Dictionary<string, object>>(
+                    "UserClub",
+                    j => j.HasOne<Club>().WithMany().HasForeignKey("ClubId"),
+                    j => j.HasOne<User>().WithMany().HasForeignKey("UserId"),
+                    j => j.ToTable("UserClubs")
+                );
+
+            //User
+            builder.Entity<Sport>().ToTable("Sport");
             builder.Entity<Sport>().HasKey(x => x.Id);
-            builder.Entity<Kata>().ToTable("katas");
+
+            //Kata
+            builder.Entity<Kata>().ToTable("Kata");
             builder.Entity<Kata>().HasKey(x => x.Id);
-            builder.Entity<Step>().ToTable("steps");
+
+            //Step
+            builder.Entity<Step>().ToTable("Step");
             builder.Entity<Step>().HasKey(x => x.Id);
-            builder.Entity<Movement>().ToTable("movements");
+
+            //Movement
+            builder.Entity<Movement>().ToTable("Movement");
             builder.Entity<Movement>().HasKey(x => x.Id);
-            builder.Entity<Club>().ToTable("clubs");
+
+            //Club
+            builder.Entity<Club>().ToTable("Club");
             builder.Entity<Club>().HasKey(c => c.Id);
-            builder.Entity<Club>().HasOne(c => c.Master);
-            builder.Entity<Club>().HasOne(c => c.Creator);
+            builder.Entity<Club>().HasOne<User>(c => c.Master).WithMany();
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
+            var entries = ChangeTracker
+                .Entries()
+                .Where(e => e.Entity is BaseEntity && (
+                        e.State == EntityState.Added
+                        || e.State == EntityState.Modified));
+
+            foreach (var entityEntry in entries)
+            {
+                ((BaseEntity)entityEntry.Entity).UpdatedAt = DateTime.Now;
+
+                if (entityEntry.State == EntityState.Added)
+                {
+                    ((BaseEntity)entityEntry.Entity).CreatedAt = DateTime.Now;
+                }
+            }
             return base.SaveChangesAsync();
         }
 
         public override int SaveChanges()
         {
+            var entries = ChangeTracker
+                .Entries()
+                .Where(e => e.Entity is IBaseEntity && (
+                        e.State == EntityState.Added
+                        || e.State == EntityState.Modified));
+
+            foreach (var entityEntry in entries)
+            {
+                ((IBaseEntity)entityEntry.Entity).UpdatedAt = DateTime.Now;
+
+                if (entityEntry.State == EntityState.Added)
+                {
+                    ((IBaseEntity)entityEntry.Entity).CreatedAt = DateTime.Now;
+                }
+            }
             return base.SaveChanges();
         }
     }

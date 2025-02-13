@@ -9,5 +9,7 @@ namespace Poomsae.Server.Application.Services.Interfaces
         Task<Result<List<SportResponse>>> GetSports(int userId);
 
         Task<Result<CreateSportRequest>> Create(CreateSportRequest request, int userId);
+
+        Task<Result> AddSport(int sportId, int id);
     }
 }

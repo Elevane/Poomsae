@@ -1,4 +1,4 @@
-﻿namespace Poomsae.Server.Domain.Entitites.Base
+﻿namespace Poomsae.Server.Domain.Entitites.Base.Interfaces
 {
     public interface IBaseEntity
     {
