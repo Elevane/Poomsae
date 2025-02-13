@@ -2,7 +2,7 @@
 using Poomsae.Server.Application.Models.Sports;
 using Poomsae.Server.Application.Models.Sports.Requests;
 
-namespace Poomsae.Server.Application.Services.Interfaces
+namespace Poomsae.Server.Application.Services.Sports.Interfaces
 {
     public interface ISportsService
     {

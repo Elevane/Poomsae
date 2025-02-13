@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Poomsae.Server.Application.Models.Errors;
 using Poomsae.Server.Application.Models.Sports;
 using Poomsae.Server.Application.Models.Sports.Requests;
-using Poomsae.Server.Application.Services.Interfaces;
+using Poomsae.Server.Application.Services.Sports.Interfaces;
 using Poomsae.Server.Domain.Entitites;
 using Poomsae.Server.Infrastructure.Persistence;
 

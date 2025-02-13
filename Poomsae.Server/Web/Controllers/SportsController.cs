@@ -2,11 +2,13 @@
 using Poomsae.Server.Application.Models.Errors;
 using Poomsae.Server.Application.Models.Sports;
 using Poomsae.Server.Application.Models.Sports.Requests;
-using Poomsae.Server.Application.Services.Interfaces;
+using Poomsae.Server.Application.Services.Sports.Interfaces;
 using Poomsae.Server.Web.Authentification.Attributes;
+using Poomsae.Server.Web.Controllers.Base;
 
 namespace Poomsae.Server.Web.Controllers
 {
+    [Private]
     public class SportsController : BaseApiController
     {
         private readonly ISportsService _service;
@@ -36,7 +38,6 @@ namespace Poomsae.Server.Web.Controllers
             return Ok();
         }
 
-        [Private]
         [HttpPost]
         public async Task<IActionResult> Create(CreateSportRequest request)
         {

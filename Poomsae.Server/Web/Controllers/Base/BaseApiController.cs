@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Poomsae.Server.Domain.Entitites;
 
-namespace Poomsae.Server.Web.Controllers
+namespace Poomsae.Server.Web.Controllers.Base
 {
     [EnableRateLimiting("poomsae")]
     [ApiController]

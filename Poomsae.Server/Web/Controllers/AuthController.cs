@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Poomsae.Server.Application.Interfaces;
 using Poomsae.Server.Application.Models.Authentification;
 using Poomsae.Server.Application.Models.Errors;
+using Poomsae.Server.Application.Services.Authentification.Interfaces;
+using Poomsae.Server.Web.Controllers.Base;
 
 namespace Poomsae.Server.Web.Controllers
 {

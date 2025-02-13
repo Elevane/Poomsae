@@ -2,7 +2,7 @@ using Poomsae.Server.Application.Models.Authentification;
 using Poomsae.Server.Application.Models.Errors;
 using Poomsae.Server.Domain.Entitites;
 
-namespace Poomsae.Server.Application.Interfaces
+namespace Poomsae.Server.Application.Services.Authentification.Interfaces
 {
     public interface IAuthService
     {
