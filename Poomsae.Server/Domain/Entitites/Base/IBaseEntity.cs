@@ -1,6 +1,6 @@
 ﻿namespace Poomsae.Server.Domain.Entitites.Base
 {
-    public class BaseEntity : IBaseEntity
+    public interface IBaseEntity
     {
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; }

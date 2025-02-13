@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Poomsae.Server.Application.Models.Authentification;
 
-namespace Poomsae.Server.Web.Authentification
+namespace Poomsae.Server.Web.Authentification.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizeAttribute : Attribute, IAuthorizationFilter

@@ -115,21 +115,14 @@ namespace Poomsae.Server.Application.Services
 
             await _context.SaveChangesAsync();
             return Result.Success();
-
         }
 
-        public Result<ApplicationUser> Get(string email)
+        public Result<User> Get(string email)
         {
-            User user = _context.Users.First(user => user.Email == email);
+            User user = _context.Users.Include(u => u.Students).Include(u => u.Sports).First(user => user.Email == email);
             if (user == null)
-                return Result<ApplicationUser>.Failure("credentials", "Impossible de trouver l'utilisateur");
-            ApplicationUser response = _mapper.Map<ApplicationUser>(user);
-            if (response == null)
-                return Result<ApplicationUser>.Failure("credentials", "La création de compte n'a pas fonctionné");
-            return Result<ApplicationUser>.Success(response);
+                return Result<User>.Failure("credentials", "Impossible de trouver l'utilisateur");
+            return Result<User>.Success(user);
         }
-
-
-
     }
 }

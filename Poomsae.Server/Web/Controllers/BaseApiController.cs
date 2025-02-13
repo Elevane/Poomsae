@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
+using Poomsae.Server.Application.Models.Authentification;
 
 namespace Poomsae.Server.Web.Controllers
 {
@@ -8,6 +9,15 @@ namespace Poomsae.Server.Web.Controllers
     [Route("api/[controller]")]
     public class BaseApiController : Controller
     {
+        private IHttpContextAccessor HttpContextAccessor;
+        protected ApplicationUser? ApplicationUser;
+
+        public BaseApiController(IHttpContextAccessor httpContextAccessor)
+        {
+            HttpContextAccessor = httpContextAccessor;
+            ApplicationUser = HttpContextAccessor?.HttpContext?.Items["User"] as ApplicationUser;
+        }
+
         protected ActionResult Ok<T>(T result)
         {
             return base.Ok(Envelope.Ok(result));

@@ -4,6 +4,7 @@ using Poomsae.Server.Application.Models.Authentification;
 using Poomsae.Server.Application.Models.Errors;
 using Poomsae.Server.Application.Services.Helpers;
 using Poomsae.Server.Application.Utils.Security;
+using Poomsae.Server.Domain.Entitites;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace Poomsae.Server.Web.Authentification
@@ -40,7 +41,7 @@ namespace Poomsae.Server.Web.Authentification
                     return;
                 }
                 var userEmail = jwtToken.Claims.First(x => x.Type == "email").Value;
-                Result<ApplicationUser> usr = userService.Get(userEmail);
+                Result<User> usr = userService.Get(userEmail);
                 if (usr.IsFailure) throw new Exception();
                 context.Items["User"] = usr.Value;
                 string? newToken = securityHelpers.generateJwtToken(userEmail);
@@ -50,7 +51,8 @@ namespace Poomsae.Server.Web.Authentification
             }
             catch
             {
-                // Ne fais rien si l'user n'existe pas ou il n'est pas authentifier, aucun user n'est a attacher a l'application
+                // Ne fais rien si l'user n'existe pas ou il n'est pas authentifier, aucun user
+                // n'est a attacher a l'application
             }
         }
     }
