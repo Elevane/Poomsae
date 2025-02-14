@@ -1,4 +1,4 @@
-﻿namespace Poomsae.Server.Application.Models.Sports
+﻿namespace Poomsae.Application.Models.Sports
 {
     public class GenericParentResponse<T> where T : class
     {

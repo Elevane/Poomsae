@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Poomsae.Server.Application.Models.Authentification;
+using Poomsae.Application.Models.Authentification;
 
 namespace Poomsae.Server.Web.Authentification.Attributes
 {

@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Poomsae.Application\Poomsae.Application.csproj" />
     <ProjectReference Include="..\poomsae.client\poomsae.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>

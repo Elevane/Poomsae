@@ -1,4 +1,4 @@
-﻿namespace Poomsae.Server.Application.Models.Errors
+﻿namespace Poomsae.Application.Models.Errors
 {
     public class Result<T> : Result where T : class
     {

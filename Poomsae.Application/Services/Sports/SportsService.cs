@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Poomsae.Server.Application.Models.Errors;
-using Poomsae.Server.Application.Models.Sports;
-using Poomsae.Server.Application.Models.Sports.Requests;
-using Poomsae.Server.Application.Services.Sports.Interfaces;
+using Poomsae.Application.Models.Errors;
+using Poomsae.Application.Models.Sports;
+using Poomsae.Application.Models.Sports.Requests;
+using Poomsae.Application.Services.Sports.Interfaces;
 using Poomsae.Server.Domain.Entitites;
 using Poomsae.Server.Infrastructure.Persistence;
 
-namespace Poomsae.Server.Application.Services
+namespace Poomsae.Application.Services
 {
     public class SportsService : ISportsService
     {

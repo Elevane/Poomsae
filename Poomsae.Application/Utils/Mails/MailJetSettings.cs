@@ -1,4 +1,4 @@
-﻿namespace Poomsae.Server.Application.Utils.Mails
+﻿namespace Poomsae.Application.Utils.Mails
 {
     public class MailJetSettings
     {

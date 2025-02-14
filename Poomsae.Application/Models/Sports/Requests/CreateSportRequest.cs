@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Poomsae.Server.Application.Utils.Mapping;
+using Poomsae.Application.Utils.Mapping;
 using Poomsae.Server.Domain.Entitites;
 
-namespace Poomsae.Server.Application.Models.Sports.Requests
+namespace Poomsae.Application.Models.Sports.Requests
 {
     public class CreateSportRequest : IMapFrom<Sport>
     {

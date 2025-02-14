@@ -1,16 +1,17 @@
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
-using Poomsae.Server.Application;
-using Poomsae.Server.Application.Services;
-using Poomsae.Server.Application.Services.Authentification;
-using Poomsae.Server.Application.Services.Authentification.Interfaces;
-using Poomsae.Server.Application.Services.External.Mails;
-using Poomsae.Server.Application.Services.Helpers;
-using Poomsae.Server.Application.Services.Sports.Interfaces;
-using Poomsae.Server.Application.Services.UserSports;
-using Poomsae.Server.Application.Services.UserSports.Interfaces;
-using Poomsae.Server.Application.Utils.Mails;
-using Poomsae.Server.Application.Utils.Security;
+using Microsoft.Extensions.Configuration;
+using Poomsae.Application;
+using Poomsae.Application.Services;
+using Poomsae.Application.Services.Authentification;
+using Poomsae.Application.Services.Authentification.Interfaces;
+using Poomsae.Application.Services.External.Mails;
+using Poomsae.Application.Services.Helpers;
+using Poomsae.Application.Services.Sports.Interfaces;
+using Poomsae.Application.Services.UserSports;
+using Poomsae.Application.Services.UserSports.Interfaces;
+using Poomsae.Application.Utils.Mails;
+using Poomsae.Application.Utils.Security;
 using Poomsae.Server.Infrastructure;
 using Poomsae.Server.Infrastructure.Persistence;
 using System.Reflection;
@@ -49,11 +50,11 @@ builder.Services.AddRateLimiter(o =>
     });
 });
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddApplication(builder.Configuration);
+builder.Services.AddApplication();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-;
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+builder.Services.Configure<MailJetSettings>(builder.Configuration.GetSection("MailJetSettings"));
 
 var app = builder.Build();
 app.UseCors(appCorsPolicy);

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
-using Poomsae.Server.Application.Models.Errors;
-using Poomsae.Server.Application.Services.Authentification.Interfaces;
-using Poomsae.Server.Application.Services.Helpers;
-using Poomsae.Server.Application.Utils.Security;
+using Poomsae.Application.Models.Errors;
+using Poomsae.Application.Services.Authentification.Interfaces;
+using Poomsae.Application.Services.Helpers;
+using Poomsae.Application.Utils.Security;
 using Poomsae.Server.Domain.Entitites;
 using System.IdentityModel.Tokens.Jwt;
 

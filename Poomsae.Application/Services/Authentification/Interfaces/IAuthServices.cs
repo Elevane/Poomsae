@@ -1,8 +1,8 @@
-using Poomsae.Server.Application.Models.Authentification;
-using Poomsae.Server.Application.Models.Errors;
+using Poomsae.Application.Models.Authentification;
+using Poomsae.Application.Models.Errors;
 using Poomsae.Server.Domain.Entitites;
 
-namespace Poomsae.Server.Application.Services.Authentification.Interfaces
+namespace Poomsae.Application.Services.Authentification.Interfaces
 {
     public interface IAuthService
     {

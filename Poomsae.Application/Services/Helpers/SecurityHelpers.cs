@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Poomsae.Server.Application.Utils.Security;
+using Poomsae.Application.Utils.Security;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Poomsae.Server.Application.Services.Helpers
+namespace Poomsae.Application.Services.Helpers
 {
     public class SecurityHelpers
     {

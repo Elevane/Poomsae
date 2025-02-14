@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using Poomsae.Server.Application.Utils.Security;
+using Poomsae.Application.Utils.Security;
 
 namespace Poomsae.Server.Web.Authentification
 {
@@ -16,13 +16,9 @@ namespace Poomsae.Server.Web.Authentification
 
         public async Task Invoke(HttpContext context)
         {
-
             string? headersKey = context.Request.Headers["xapikey"].FirstOrDefault()?.Split(" ").Last();
 
             await _next(context);
-
         }
-
-
     }
 }

@@ -2,9 +2,9 @@
 using Mailjet.Client.Resources;
 using Mailjet.Client.TransactionalEmails;
 using Microsoft.Extensions.Options;
-using Poomsae.Server.Application.Utils.Mails;
+using Poomsae.Application.Utils.Mails;
 
-namespace Poomsae.Server.Application.Services.External.Mails
+namespace Poomsae.Application.Services.External.Mails
 {
     public class MailJetSender : IMailSender
     {

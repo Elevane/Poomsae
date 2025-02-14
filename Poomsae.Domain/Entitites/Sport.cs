@@ -6,7 +6,7 @@ namespace Poomsae.Server.Domain.Entitites
     {
         public string Ecole { get; set; }
 
-        internal static Sport Create(User creator, string name, string ecole)
+        public static Sport Create(User creator, string name, string ecole)
         {
             Sport sport = new Sport();
             sport.Initialize(creator, name);

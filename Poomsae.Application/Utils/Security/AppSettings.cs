@@ -1,4 +1,4 @@
-﻿namespace Poomsae.Server.Application.Utils.Security
+﻿namespace Poomsae.Application.Utils.Security
 {
     public class AppSettings
     {

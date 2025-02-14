@@ -1,4 +1,4 @@
-﻿namespace Poomsae.Server.Application.Models.UserSports.Requests
+﻿namespace Poomsae.Application.Models.UserSports.Requests
 {
     public class AddUserSportsRequest
     {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace Poomsae.Server.Application.Utils.Mapping
+namespace Poomsae.Application.Utils.Mapping
 {
     public interface IMapFrom<T>
     {

@@ -1,24 +1,24 @@
-﻿using Poomsae.Server.Application.Services.Authentification.Interfaces;
-using Poomsae.Server.Application.Services.Authentification;
-using Poomsae.Server.Application.Services.External.Mails;
-using Poomsae.Server.Application.Services.Helpers;
-using Poomsae.Server.Application.Services.Sports.Interfaces;
-using Poomsae.Server.Application.Services.UserSports.Interfaces;
-using Poomsae.Server.Application.Services.UserSports;
-using Poomsae.Server.Application.Services;
-using Poomsae.Server.Application.Utils.Mails;
-using Poomsae.Server.Application.Utils.Security;
+﻿using Poomsae.Application.Services.Authentification.Interfaces;
+using Poomsae.Application.Services.Authentification;
+using Poomsae.Application.Services.External.Mails;
+using Poomsae.Application.Services.Helpers;
+using Poomsae.Application.Services.Sports.Interfaces;
+using Poomsae.Application.Services.UserSports.Interfaces;
+using Poomsae.Application.Services.UserSports;
+using Poomsae.Application.Services;
+using Poomsae.Application.Utils.Mails;
+using Poomsae.Application.Utils.Security;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
-namespace Poomsae.Server.Application
+namespace Poomsae.Application
 {
     public static class ApplicationDependancyInjectionExtension
     {
-        public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
+        public static void AddApplication(this IServiceCollection services)
         {
-            services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
-            services.Configure<MailJetSettings>(configuration.GetSection("MailJetSettings"));
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddScoped<SecurityHelpers>();
             services.AddScoped<IMailSender, MailJetSender>();
             services.AddScoped<IAuthService, AuthService>();

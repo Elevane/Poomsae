@@ -1,16 +1,17 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Poomsae.Server.Application.Models.Authentification;
-using Poomsae.Server.Application.Models.Errors;
-using Poomsae.Server.Application.Services.Authentification.Interfaces;
-using Poomsae.Server.Application.Services.External.Mails;
-using Poomsae.Server.Application.Services.Helpers;
+using Poomsae.Application.Models.Authentification;
+using Poomsae.Application.Models.Errors;
+using Poomsae.Application.Services.Authentification.Interfaces;
+using Poomsae.Application.Services.External.Mails;
+using Poomsae.Application.Services.Helpers;
 using Poomsae.Server.Domain.Entitites;
 using Poomsae.Server.Infrastructure.Persistence;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace Poomsae.Server.Application.Services.Authentification
+namespace Poomsae.Application.Services.Authentification
 {
     public class AuthService : IAuthService
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Poomsae.Server.Application.Models.Authentification
+namespace Poomsae.Application.Models.Authentification
 {
     public class AuthenticateUserRequest
     {

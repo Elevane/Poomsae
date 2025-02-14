@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using System.Reflection;
 
-namespace Poomsae.Server.Application.Utils.Mapping
+namespace Poomsae.Application.Utils.Mapping
 {
     public class MappingProfile : Profile
     {

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Poomsae.Server.Application.Utils.Mapping;
+using Poomsae.Application.Utils.Mapping;
 using Poomsae.Server.Domain.Entitites;
 
-namespace Poomsae.Server.Application.Models.Authentification
+namespace Poomsae.Application.Models.Authentification
 {
     public class ApplicationUser : IMapFrom<User>
     {
@@ -10,6 +10,7 @@ namespace Poomsae.Server.Application.Models.Authentification
         public string? Password { get; set; }
 
         public int? Id { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<ApplicationUser, User>().ReverseMap();

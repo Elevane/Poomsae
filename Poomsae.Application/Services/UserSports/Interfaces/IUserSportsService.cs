@@ -1,9 +1,9 @@
-﻿using Poomsae.Server.Application.Models.Errors;
-using Poomsae.Server.Application.Models.Sports;
-using Poomsae.Server.Application.Models.Sports.Requests;
-using Poomsae.Server.Application.Models.UserSports.Requests;
+﻿using Poomsae.Application.Models.Errors;
+using Poomsae.Application.Models.Sports;
+using Poomsae.Application.Models.Sports.Requests;
+using Poomsae.Application.Models.UserSports.Requests;
 
-namespace Poomsae.Server.Application.Services.UserSports.Interfaces
+namespace Poomsae.Application.Services.UserSports.Interfaces
 {
     public interface IUserSportsService
     {

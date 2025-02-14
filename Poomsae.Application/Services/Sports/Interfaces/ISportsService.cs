@@ -1,8 +1,8 @@
-﻿using Poomsae.Server.Application.Models.Errors;
-using Poomsae.Server.Application.Models.Sports;
-using Poomsae.Server.Application.Models.Sports.Requests;
+﻿using Poomsae.Application.Models.Errors;
+using Poomsae.Application.Models.Sports;
+using Poomsae.Application.Models.Sports.Requests;
 
-namespace Poomsae.Server.Application.Services.Sports.Interfaces
+namespace Poomsae.Application.Services.Sports.Interfaces
 {
     public interface ISportsService
     {

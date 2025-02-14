@@ -1,4 +1,4 @@
-﻿namespace Poomsae.Server.Application.Services.External.Mails
+﻿namespace Poomsae.Application.Services.External.Mails
 {
     public interface IMailSender
     {

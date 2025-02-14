@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Poomsae.Server.Application.Utils.Mapping;
+using Poomsae.Application.Utils.Mapping;
 using Poomsae.Server.Domain.Entitites;
 
-namespace Poomsae.Server.Application.Models.Sports
+namespace Poomsae.Application.Models.Sports
 {
     public class KataResponse : GenericParentResponse<StepResponse>, IMapFrom<Kata>
     {

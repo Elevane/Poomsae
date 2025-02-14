@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Poomsae.Server.Application.Utils.Mapping;
+using Poomsae.Application.Utils.Mapping;
 using Poomsae.Server.Domain.Entitites;
 
-namespace Poomsae.Server.Application.Models.Authentification
+namespace Poomsae.Application.Models.Authentification
 {
     public class DeleteUserRequest : IMapFrom<User>
     {
