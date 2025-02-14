@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Poomsae.Server.Domain.Entitites;
-using Poomsae.Server.Domain.Entitites.Base;
 using Poomsae.Server.Domain.Entitites.Base.Interfaces;
 
 namespace Poomsae.Server.Infrastructure.Persistence
@@ -58,17 +57,17 @@ namespace Poomsae.Server.Infrastructure.Persistence
         {
             var entries = ChangeTracker
                 .Entries()
-                .Where(e => e.Entity is BaseEntity && (
+                .Where(e => e.Entity is IBaseEntity && (
                         e.State == EntityState.Added
                         || e.State == EntityState.Modified));
 
             foreach (var entityEntry in entries)
             {
-                ((BaseEntity)entityEntry.Entity).UpdatedAt = DateTime.Now;
+                ((IBaseEntity)entityEntry.Entity).UpdatedAt = DateTime.Now;
 
                 if (entityEntry.State == EntityState.Added)
                 {
-                    ((BaseEntity)entityEntry.Entity).CreatedAt = DateTime.Now;
+                    ((IBaseEntity)entityEntry.Entity).CreatedAt = DateTime.Now;
                 }
             }
             return base.SaveChangesAsync();

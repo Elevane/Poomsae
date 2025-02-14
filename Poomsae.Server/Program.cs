@@ -32,7 +32,22 @@ builder.Services.AddCors(options =>
         policy.WithOrigins(AllowedOrigins).AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithExposedHeaders("x-refresh-token");
     });
 });
-
+builder.Services.AddRateLimiter(o =>
+{
+    o.OnRejected = (context, cancellationToken) =>
+    {
+        context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+        context.HttpContext.Response.WriteAsync("Maxi mum request limit reached.");
+        return new ValueTask();
+    };
+    o.AddFixedWindowLimiter(policyName: "poomsae", options =>
+    {
+        options.PermitLimit = 10;
+        options.Window = TimeSpan.FromSeconds(5);
+        options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        options.QueueLimit = 2;
+    });
+});
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddHttpContextAccessor();

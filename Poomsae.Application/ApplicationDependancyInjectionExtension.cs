@@ -8,6 +8,8 @@ using Poomsae.Server.Application.Services.UserSports;
 using Poomsae.Server.Application.Services;
 using Poomsae.Server.Application.Utils.Mails;
 using Poomsae.Server.Application.Utils.Security;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 
 namespace Poomsae.Server.Application
 {
