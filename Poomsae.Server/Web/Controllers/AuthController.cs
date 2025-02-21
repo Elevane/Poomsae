@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Poomsae.Application.Models.Authentification;
-using Poomsae.Application.Models.Errors;
+using Poomsae.Application.Models.Dtos.Authentification;
+using Poomsae.Application.Models.Monads.Errors;
 using Poomsae.Application.Services.Authentification.Interfaces;
 using Poomsae.Server.Web.Controllers.Base;
 

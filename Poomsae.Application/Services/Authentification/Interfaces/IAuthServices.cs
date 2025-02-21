@@ -1,5 +1,5 @@
-using Poomsae.Application.Models.Authentification;
-using Poomsae.Application.Models.Errors;
+using Poomsae.Application.Models.Dtos.Authentification;
+using Poomsae.Application.Models.Monads.Errors;
 using Poomsae.Server.Domain.Entitites;
 
 namespace Poomsae.Application.Services.Authentification.Interfaces

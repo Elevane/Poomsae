@@ -10,7 +10,6 @@ const NotFound: React.FC = () => {
         navigate('/login');
     };
 
-
     return (<Result
         status="404"
         title="404"

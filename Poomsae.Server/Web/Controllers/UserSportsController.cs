@@ -1,16 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Poomsae.Application.Models.Errors;
-using Poomsae.Application.Models.Sports;
-using Poomsae.Application.Models.Sports.Requests;
-using Poomsae.Application.Models.UserSports.Requests;
-using Poomsae.Application.Services.Sports.Interfaces;
+using Poomsae.Application.Models.Dtos.UserSports.Requests;
+using Poomsae.Application.Models.Monads.Errors;
 using Poomsae.Application.Services.UserSports.Interfaces;
+using Poomsae.Server.Domain.Entitites;
 using Poomsae.Server.Web.Authentification.Attributes;
 using Poomsae.Server.Web.Controllers.Base;
 
 namespace Poomsae.Server.Web.Controllers
 {
-    [Private]
+    [Authorize]
     public class UserSportsController : BaseApiController
     {
         private readonly IUserSportsService _service;
@@ -29,6 +27,15 @@ namespace Poomsae.Server.Web.Controllers
             if (res.IsFailure)
                 return BadRequest(res.Errors);
             return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> List()
+        {
+            Result<List<UserSport>> res = await _service.GetAll((int)ApplicationUser.Id);
+            if (res.IsFailure)
+                return BadRequest(res.Errors);
+            return Ok(res.Value);
         }
     }
 }

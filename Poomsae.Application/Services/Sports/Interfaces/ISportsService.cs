@@ -1,6 +1,6 @@
-﻿using Poomsae.Application.Models.Errors;
-using Poomsae.Application.Models.Sports;
-using Poomsae.Application.Models.Sports.Requests;
+﻿using Poomsae.Application.Models.Dtos.Sports;
+using Poomsae.Application.Models.Dtos.Sports.Requests;
+using Poomsae.Application.Models.Monads.Errors;
 
 namespace Poomsae.Application.Services.Sports.Interfaces
 {

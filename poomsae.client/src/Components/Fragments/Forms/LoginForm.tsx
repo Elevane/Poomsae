@@ -1,19 +1,20 @@
-
-import { useEffect, useState } from "react"
-import { Form, Input } from "antd"
+import { useState } from "react"
+import { Form } from "antd"
 import { useNavigate } from "react-router-dom"
 import Link from "antd/es/typography/Link"
 import useUserService from "../../../Hooks/Services/UseUserService"
 import SubmitButton from "../../Molecules/SubmitButton"
-import { useRecoilValue } from "recoil"
-import { authState } from "../../../state/auth"
 import useLocalStorage from "../../../Hooks/useLocalStorage"
+import EmailFormItem from "./FormInputs/EmailFormItem"
+import PasswordFormItem from "./FormInputs/PasswordFormItem"
+import AuthentificationForm from "./Generics/AuthentificationForm"
 
 type LoginFormInputs = {
     email: string
     password: string
     confirmPassword: string
 }
+
 const LoginForm: React.FC = () => {
     const localStorage = useLocalStorage()
     const [form] = Form.useForm<LoginFormInputs>()
@@ -21,39 +22,25 @@ const LoginForm: React.FC = () => {
     const userRepository = useUserService()
     const navigate = useNavigate()
 
-    useEffect(() => {
-        if (localStorage.GetUser() != null && localStorage.GetUser().isAuthenticated) {
-            navigate("/hub")
-        }
-    }, [])
+    if (localStorage.GetUser() != null && localStorage.GetUser().isAuthenticated)
+        navigate("/hub")
+
     const onFinish = async (e: LoginFormInputs) => {
+        console.log(e)
         setLoading(true)
         await userRepository.login({ email: e.email, password: e.password })
         setLoading(false)
     }
 
     return (
-
-        <Form
+        <AuthentificationForm
             form={form}
-            layout="horizontal"
             onFinish={onFinish}>
-            <Form.Item
-                name="email"
-                rules={[{ required: true, message: "Enter an email" }]}
-            >
-                <Input placeholder="Email" style={{ width: "300px", height: "40px", borderRadius: 0 }} />
-            </Form.Item>
-            <Form.Item
-                name="password"
-                rules={[{ required: true, message: "Type you password" }]}
-            >
-                <Input.Password autoComplete="password" placeholder="password" style={{ width: "300px", height: "40px", borderRadius: 0 }} />
-            </Form.Item>
-            <SubmitButton loading={loading} text="Login" />
-            <Link onClick={() => navigate("/create_account")}>Not a member ?</Link>
-        </Form>
-
+            <EmailFormItem />
+            <PasswordFormItem />
+            <SubmitButton style={{ background: "linear-gradient(90deg, #c60c30, #003478)" }} loading={loading} text="Login" />
+            <Link style={{ fontWeight: "bold" }} onClick={() => navigate("/create_account")}>Not a member ?</Link>
+        </AuthentificationForm>
     )
 }
 

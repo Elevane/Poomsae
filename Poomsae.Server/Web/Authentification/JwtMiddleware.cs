@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using Poomsae.Application.Models.Errors;
+using Poomsae.Application.Models.Monads.Errors;
 using Poomsae.Application.Services.Authentification.Interfaces;
 using Poomsae.Application.Services.Helpers;
 using Poomsae.Application.Utils.Security;

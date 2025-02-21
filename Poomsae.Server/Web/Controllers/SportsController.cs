@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Poomsae.Application.Models.Errors;
-using Poomsae.Application.Models.Sports;
-using Poomsae.Application.Models.Sports.Requests;
+using Poomsae.Application.Models.Dtos.Sports;
+using Poomsae.Application.Models.Dtos.Sports.Requests;
+using Poomsae.Application.Models.Monads.Errors;
 using Poomsae.Application.Services.Sports.Interfaces;
 using Poomsae.Server.Web.Authentification.Attributes;
 using Poomsae.Server.Web.Controllers.Base;

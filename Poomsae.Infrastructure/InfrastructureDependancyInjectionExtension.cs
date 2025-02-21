@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Poomsae.Server.Infrastructure.Persistence;
+using Poomsae.Infrastructure.Externals.Mails;
+using Poomsae.Infrastructure.Externals.Mails.Interfaces;
+using Poomsae.Infrastructure.Persistence;
 
 namespace Poomsae.Server.Infrastructure
 {
@@ -9,6 +11,7 @@ namespace Poomsae.Server.Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddScoped<IMailSender, MailJetSender>();
             services.AddDbContext<IApplicationContext, ApplicationSqlContext>(options =>
             {
                 string? conString = configuration

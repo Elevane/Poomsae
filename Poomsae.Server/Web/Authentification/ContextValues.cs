@@ -3,6 +3,5 @@
     public static class ContextValues
     {
         public const string User = "User";
-
     }
 }

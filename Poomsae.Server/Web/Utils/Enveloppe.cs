@@ -7,6 +7,7 @@ namespace Poomsae.Server.Web.Utils
     {
         public Envelope()
         { }
+
         public T? Result { get; set; }
         public Dictionary<string, string>? Errors { get; set; }
 
@@ -32,7 +33,6 @@ public class Envelope : Envelope<string>
     {
     }
 
-
     public static Envelope<T> Error<T>(Dictionary<string, string> errorMessage)
     {
         return new Envelope<T>(errorMessage);
@@ -47,5 +47,4 @@ public class Envelope : Envelope<string>
     {
         return new Envelope<T>(result);
     }
-
 }

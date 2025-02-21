@@ -17,8 +17,17 @@ namespace Poomsae.Server.Web.Authentification
         public async Task Invoke(HttpContext context)
         {
             string? headersKey = context.Request.Headers["xapikey"].FirstOrDefault()?.Split(" ").Last();
-
-            await _next(context);
+            if (headersKey == null || headersKey != _appSettings.ApiKey)
+            {
+                context.Response.StatusCode = 401;
+                await context.Response.WriteAsync("Api Key not found.");
+                await context.Response.CompleteAsync();
+                return;
+            }
+            else
+            {
+                await _next(context);
+            }
         }
     }
 }

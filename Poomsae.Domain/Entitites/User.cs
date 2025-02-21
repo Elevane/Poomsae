@@ -28,6 +28,7 @@ namespace Poomsae.Server.Domain.Entitites
             Email = email;
             Password = password;
             IsConfirmed = false;
+            Role = Role.user;
         }
 
         public static bool isValid(string password)

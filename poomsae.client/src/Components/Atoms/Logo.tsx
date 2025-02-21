@@ -1,15 +1,12 @@
-
-
 interface LogoProps {
     name: string
     src?: string
     size: "small" | "medium" | "big"
-    style: React.CSSProperties
+    style?: React.CSSProperties
 }
 
 const Logo: React.FC<LogoProps> = ({
     size, name, style, src = "logo.svg" }) => {
-
     const LogoStyle = {
         ...style,
         width: "100px",

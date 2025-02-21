@@ -6,16 +6,14 @@ namespace Poomsae.Server.Domain.Entitites
     {
         public Sport Sport { get; set; }
 
-        private UserSport(User user, Sport sport)
-        {
-            Sport = sport;
-            Follower = user;
-            Validated = false;
-        }
-
         public static UserSport Create(User user, Sport sport)
         {
-            return new UserSport(user, sport);
+            return new UserSport()
+            {
+                Follower = user,
+                Sport = sport,
+                Validated = false
+            };
         }
     }
 }

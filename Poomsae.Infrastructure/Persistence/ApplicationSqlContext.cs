@@ -2,7 +2,7 @@
 using Poomsae.Server.Domain.Entitites;
 using Poomsae.Server.Domain.Entitites.Base.Interfaces;
 
-namespace Poomsae.Server.Infrastructure.Persistence
+namespace Poomsae.Infrastructure.Persistence
 {
     public class ApplicationSqlContext : DbContext, IApplicationContext
     {
@@ -16,6 +16,8 @@ namespace Poomsae.Server.Infrastructure.Persistence
         public DbSet<Step> Steps { get; set; }
         public DbSet<Movement> Movements { get; set; }
         public DbSet<Club> Clubs { get; set; }
+
+        public DbSet<UserSport> UserSports { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -51,6 +53,9 @@ namespace Poomsae.Server.Infrastructure.Persistence
             builder.Entity<Club>().ToTable("Club");
             builder.Entity<Club>().HasKey(c => c.Id);
             builder.Entity<Club>().HasOne<User>(c => c.Master).WithMany();
+
+            //UserSports
+            builder.Entity<UserSport>().ToTable("UserSport");
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

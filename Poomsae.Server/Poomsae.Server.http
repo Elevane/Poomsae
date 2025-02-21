@@ -1,6 +1,6 @@
 @Poomsae.Server_HostAddress = http://localhost:5293
 
-GET {{Poomsae.Server_HostAddress}}/weatherforecast/
+GET {{Poomsae.Server_HostAddress}}/api/
 Accept: application/json
 
 ###

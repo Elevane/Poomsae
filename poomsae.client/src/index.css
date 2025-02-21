@@ -1,9 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
     margin: 0;
     padding: 0;
     box-shadow: none;
     font-family: 'Nunito Serif';
 }
+
 
 html {
     height: 100vh;
@@ -17,5 +22,18 @@ html {
     margin: 0;
     padding: 0;
     box-shadow: none;
+    font-family: "Nunito", Serif;
+}
 
+.btn {
+    font-family: "Nunito", Serif;
+    width: 450px;
+    margin: 2vh;
+    height: 50px;
+    border-radius: 0;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    font-family: 'nunito';
+    background: linear-gradient(90deg, #c60c30, #003478)
 }

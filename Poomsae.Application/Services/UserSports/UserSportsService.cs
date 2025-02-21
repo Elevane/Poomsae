@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Poomsae.Application.Models.Errors;
-using Poomsae.Application.Models.Sports;
-using Poomsae.Application.Models.Sports.Requests;
-using Poomsae.Application.Models.UserSports.Requests;
-using Poomsae.Application.Services.Sports.Interfaces;
+using Poomsae.Application.Models.Dtos.UserSports.Requests;
+using Poomsae.Application.Models.Monads.Errors;
 using Poomsae.Application.Services.UserSports.Interfaces;
+using Poomsae.Infrastructure.Persistence;
 using Poomsae.Server.Domain.Entitites;
-using Poomsae.Server.Infrastructure.Persistence;
 
 namespace Poomsae.Application.Services.UserSports
 {
@@ -36,6 +33,12 @@ namespace Poomsae.Application.Services.UserSports
             _authenticatedUser.Sports.Add(userSport);
             await _context.SaveChangesAsync();
             return Result.Success();
+        }
+
+        public async Task<Result<List<UserSport>>> GetAll(int userId)
+        {
+            List<UserSport> userSports = await _context.UserSports.Where(us => us.Follower.Id == userId).ToListAsync();
+            return Result<List<UserSport>>.Success(userSports);
         }
     }
 }

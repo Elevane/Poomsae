@@ -1,20 +1,9 @@
 using Microsoft.AspNetCore.RateLimiting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Poomsae.Application;
-using Poomsae.Application.Services;
-using Poomsae.Application.Services.Authentification;
-using Poomsae.Application.Services.Authentification.Interfaces;
-using Poomsae.Application.Services.External.Mails;
-using Poomsae.Application.Services.Helpers;
-using Poomsae.Application.Services.Sports.Interfaces;
-using Poomsae.Application.Services.UserSports;
-using Poomsae.Application.Services.UserSports.Interfaces;
-using Poomsae.Application.Utils.Mails;
 using Poomsae.Application.Utils.Security;
+using Poomsae.Infrastructure.Externals.Mails.Settings;
 using Poomsae.Server.Infrastructure;
-using Poomsae.Server.Infrastructure.Persistence;
-using System.Reflection;
+using Poomsae.Server.Web.Authentification;
 using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -70,7 +59,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseMiddleware<ApiKeyMiddleware>();
+app.UseMiddleware<JwtMiddleware>();
 app.MapControllers();
 
 app.MapFallbackToFile("/index.html");

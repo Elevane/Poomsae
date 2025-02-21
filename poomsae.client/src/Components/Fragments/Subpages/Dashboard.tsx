@@ -1,10 +1,9 @@
-import React, { ChangeEventHandler, useState } from 'react';
-import { Card, Button, Row, Col, Divider, Typography, Input, Badge, Upload, Calendar } from 'antd';
-import { HeartOutlined, CommentOutlined, BellOutlined, UploadOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import { Card, Button, Row, Col, Typography, Input, Badge } from 'antd';
+import { HeartOutlined, CommentOutlined, BellOutlined } from '@ant-design/icons';
 
 const { Title, Text } = Typography;
 
-// --- Section des posts ---
 interface Post {
     id: number;
     user: string;
@@ -90,8 +89,7 @@ const NotificationBadge = () => (
     </Badge>
 );
 
-
-const Dashboard: React.FC = () => {
+const DashBoard: React.FC = () => {
     const [likedPosts, setLikedPosts] = useState<number[]>([]);
     const [filteredPosts, setFilteredPosts] = useState<Post[]>(posts);
     const [filteredUsers, setFilteredUsers] = useState<User[]>(users);
@@ -148,8 +146,6 @@ const Dashboard: React.FC = () => {
                     </Row>
                 </Col>
 
-
-
                 {/* Section des actualités */}
                 <Col span={24}>
                     <Title level={3}>Fil d'Actualités</Title>
@@ -168,8 +164,6 @@ const Dashboard: React.FC = () => {
                         ))}
                     </Row>
                 </Col>
-
-
 
                 {/* Section des suggestions d'utilisateurs */}
                 <Col span={24}>
@@ -190,17 +184,9 @@ const Dashboard: React.FC = () => {
                     </Row>
                 </Col>
 
-
-
-
-
-
-
-
-
             </Row>
         </div>
     );
 };
 
-export default Dashboard;
+export default DashBoard;

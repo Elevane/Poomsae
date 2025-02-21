@@ -22,10 +22,7 @@
     <ProjectReference Include="..\poomsae.client\poomsae.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
+    <ProjectReference Include="..\Poomsae.Infrastructure\Poomsae.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
