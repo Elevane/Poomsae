@@ -1,9 +1,13 @@
-﻿namespace Poomsae.Server.Domain.Entitites.Base.Interfaces
+﻿using Poomsae.Domain.Entitites.Base.Interfaces;
+
+namespace Poomsae.Server.Domain.Entitites.Base.Interfaces
 {
-    public interface IBaseEntity
+    public interface IBaseEntity : IEntity
     {
-        public int Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+
+        int Likes { get; set; }
+        string Name { get; set; }
     }
 }

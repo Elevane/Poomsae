@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using Poomsae.Application.Utils.Mapping;
 using Poomsae.Server.Domain.Entitites;
+using Poomsae.Server.Domain.Entitites.Base;
 
-namespace Poomsae.Application.Models.Dtos.Sports
+namespace Poomsae.Application.Models.Dtos.References.Responses
 {
-    public class SportResponse : GenericParentResponse<KataResponse>, IMapFrom<Sport>
+    public class SportResponse : BaseEntity, IMapFrom<Sport>
     {
         public void Mapping(Profile profile)
         {

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Poomsae.Application.Models.Dtos.Authentification;
 using Poomsae.Server.Domain.Entitites;
 
 namespace Poomsae.Server.Web.Authentification.Attributes

@@ -2,7 +2,7 @@
 using Poomsae.Application.Utils.Mapping;
 using Poomsae.Server.Domain.Entitites;
 
-namespace Poomsae.Application.Models.Dtos.Sports
+namespace Poomsae.Application.Models.Dtos.Authentification
 {
     public class UserResponse : IMapFrom<User>
     {

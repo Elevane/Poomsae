@@ -1,9 +1,11 @@
-﻿using Poomsae.Server.Domain.Entities.Base;
+﻿using Poomsae.Server.Domain.Entitites.Base;
 
 namespace Poomsae.Server.Domain.Entitites
 {
-    public class Step : GenericParentEntity<Movement>
+    public class Step : BaseEntity
     {
         public int Order { get; set; }
+
+        public List<Movement> Movements { get; set; }
     }
 }

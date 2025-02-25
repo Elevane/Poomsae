@@ -6,7 +6,7 @@ using Poomsae.Server.Domain.Entitites;
 using Poomsae.Server.Web.Authentification.Attributes;
 using Poomsae.Server.Web.Controllers.Base;
 
-namespace Poomsae.Server.Web.Controllers
+namespace Poomsae.Server.Web.Controllers.Users
 {
     [Authorize]
     public class UserSportsController : BaseApiController
@@ -23,7 +23,7 @@ namespace Poomsae.Server.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddUserSportsRequest request)
         {
-            Result res = await _service.AddSport(request, (int)ApplicationUser.Id);
+            Result res = await _service.AddSport(request, ApplicationUser.Id);
             if (res.IsFailure)
                 return BadRequest(res.Errors);
             return Ok();
@@ -32,7 +32,7 @@ namespace Poomsae.Server.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            Result<List<UserSport>> res = await _service.GetAll((int)ApplicationUser.Id);
+            Result<List<UserSport>> res = await _service.GetAll(ApplicationUser.Id);
             if (res.IsFailure)
                 return BadRequest(res.Errors);
             return Ok(res.Value);

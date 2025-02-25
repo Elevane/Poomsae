@@ -4,6 +4,7 @@ using Poomsae.Application.Utils.Security;
 using Poomsae.Infrastructure.Externals.Mails.Settings;
 using Poomsae.Server.Infrastructure;
 using Poomsae.Server.Web.Authentification;
+using Poomsae.Server.Web.Utils.Documentation;
 using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -44,7 +45,7 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.Configure<MailJetSettings>(builder.Configuration.GetSection("MailJetSettings"));
-
+builder.Services.AddPoomsaeSwaggerDefinition();
 var app = builder.Build();
 app.UseCors(appCorsPolicy);
 app.UseDefaultFiles();

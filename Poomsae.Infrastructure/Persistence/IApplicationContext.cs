@@ -14,8 +14,10 @@ namespace Poomsae.Infrastructure.Persistence
 
         DbSet<UserSport> UserSports { get; set; }
 
-        public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 
-        public int SaveChanges();
+        DbSet<T> Set<T>() where T : class;
+
+        int SaveChanges();
     }
 }
