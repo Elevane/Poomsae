@@ -14,7 +14,7 @@ async function request<T>(
     content?: object | null,
     contentType: ContentType = ContentType.json,
     token?: string
-): Promise<ApiResult<T>> {
+): Promise<ApiResult<TResponse>> {
     const header: HeadersInit = {
         "Access-Control-Allow-Origin": "*",
         Accept: "*/*",
@@ -42,13 +42,13 @@ async function request<T>(
 
     try {
         const response = await fetch(route, options)
-        const apiResult = (await response.json()) as ApiResult<T>
+        const apiResult = (await response.json()) as ApiResult<TResponse>
         if (apiResult.errors) {
             return {
                 result: null,
                 failure: true,
                 errors: apiResult.errors,
-            } as ApiResult<T>
+            } as ApiResult<TResponse>
         }
 
         return {
@@ -71,7 +71,7 @@ async function post<T>(
     content: object,
     contentType?: ContentType,
     token?: string
-): Promise<ApiResult<T>> {
+): Promise<ApiResult<TResponse>> {
     return await request("POST", route, content, contentType, token)
 }
 async function get<T>(
@@ -79,7 +79,7 @@ async function get<T>(
     content?: object | null,
     contentType?: ContentType,
     token?: string
-): Promise<ApiResult<T>> {
+): Promise<ApiResult<TResponse>> {
     return await request("GET", route, content, contentType, token)
 }
 
@@ -88,7 +88,7 @@ async function patch<T>(
     content?: object | null,
     contentType?: ContentType,
     token?: string
-): Promise<ApiResult<T>> {
+): Promise<ApiResult<TResponse>> {
     return await request("PATCH", route, content, contentType, token)
 }
 
@@ -97,7 +97,7 @@ async function del<T>(
     content?: object | null,
     contentType?: ContentType,
     token?: string
-): Promise<ApiResult<T>> {
+): Promise<ApiResult<TResponse>> {
     return await request("DELETE", route, content, contentType, token)
 }
 

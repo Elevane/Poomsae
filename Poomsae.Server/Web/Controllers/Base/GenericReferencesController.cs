@@ -7,44 +7,40 @@ using Poomsae.Server.Web.Authentification.Attributes;
 
 namespace Poomsae.Server.Web.Controllers.Base
 {
-    [Private]
-    public class GenericController<T, R1, R2> : BaseApiController where T : class, IBaseEntity
-        where R1 : class, IEntity
-        where R2 : class, IBaseEntity
+    [AdminController]
+    public class GenericReferencesController<T, TRequest, TResponse> : BaseApiController where T : class, IBaseEntity
+        where TRequest : class, IEntity
+        where TResponse : class, IBaseEntity
     {
-        private readonly IGenericService<T, R1, R2> _service;
+        private readonly IGenericReferencesService<T, TRequest, TResponse> _service;
 
-        public GenericController(IHttpContextAccessor httpContextAccessor, IGenericService<T, R1, R2> service) : base(httpContextAccessor)
+        public GenericReferencesController(IHttpContextAccessor httpContextAccessor, IGenericReferencesService<T, TRequest, TResponse> service) : base(httpContextAccessor)
         {
             _service = service;
         }
 
-        public GenericController(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
-        {
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Post(R1 request)
+        public async Task<IActionResult> Post(TRequest request)
         {
-            Result<T> result = await _service.Create(request);
+            Result result = await _service.Create(request);
             if (result.IsFailure)
                 return BadRequest(result.Errors);
-            return Ok(result.Value);
+            return Created();
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(R1 request)
+        public async Task<IActionResult> Put(TRequest request)
         {
-            Result<T> result = await _service.Update(request);
+            Result result = await _service.Update(request);
             if (result.IsFailure)
                 return BadRequest(result.Errors);
-            return Ok(result.Value);
+            return NoContent();
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            Result<T> result = await _service.Get(id);
+            Result<TResponse> result = await _service.Get(id);
             if (result.IsFailure)
                 return BadRequest(result.Errors);
             return Ok(result.Value);
@@ -53,7 +49,7 @@ namespace Poomsae.Server.Web.Controllers.Base
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            Result<List<T>> result = await _service.GetAll();
+            Result<List<TResponse>> result = await _service.GetAll();
             if (result.IsFailure)
                 return BadRequest(result.Errors);
             return Ok(result.Value);
@@ -62,10 +58,10 @@ namespace Poomsae.Server.Web.Controllers.Base
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            Result<T> result = await _service.Delete(id);
+            Result result = await _service.Delete(id);
             if (result.IsFailure)
                 return BadRequest(result.Errors);
-            return Ok(result.Value);
+            return NoContent();
         }
     }
 }

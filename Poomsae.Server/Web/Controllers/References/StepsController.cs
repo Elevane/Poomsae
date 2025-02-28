@@ -6,9 +6,9 @@ using Poomsae.Server.Web.Controllers.Base;
 
 namespace Poomsae.Server.Web.Controllers
 {
-    public class StepsController : GenericController<Step, StepRequest, StepResponse>
+    public class StepsController : GenericReferencesController<Step, StepRequest, StepResponse>
     {
-        public StepsController(IHttpContextAccessor httpContextAccessor, IGenericService<Step, StepRequest, StepResponse> service) : base(httpContextAccessor, service)
+        public StepsController(IHttpContextAccessor httpContextAccessor, IGenericReferencesService<Step, StepRequest, StepResponse> service) : base(httpContextAccessor, service)
         {
         }
     }

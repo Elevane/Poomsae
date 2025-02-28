@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using Poomsae.Application.Models.Dtos.Authentification;
 using Poomsae.Application.Models.Monads.Errors;
 using Poomsae.Application.Services.Authentification.Interfaces;
@@ -30,22 +31,49 @@ namespace Poomsae.Server.Web.Controllers
             return Ok(res.Value);
         }
 
-        /*[HttpDelete("[action]")]
+        [HttpDelete]
         public async Task<IActionResult> Delete(DeleteUserRequest request)
         {
             Result res = await _authService.DeleteOrAnonymise(request);
             if (res.IsFailure)
                 return BadRequest(res.Errors);
             return Ok(request);
-        }*/
+        }
 
         [HttpPatch("[action]/{token}")]
-        public async Task<IActionResult> confirm(string token)
+        public async Task<IActionResult> Confirm(string token)
         {
             Result res = await _authService.ConfirmAccount(token);
             if (res.IsFailure)
                 return BadRequest(res.Errors);
             return Ok(token);
+        }
+
+        [HttpPatch("[action]/{email}")]
+        public async Task<IActionResult> Reset(string email)
+        {
+            Result res = await _authService.ResetPassword(email);
+            if (res.IsFailure)
+                return BadRequest(res.Errors);
+            return NoContent();
+        }
+
+        [HttpPatch("[action]/{token}")]
+        public async Task<IActionResult> ValidateToken(string token)
+        {
+            Result res = await _authService.ValidateChangePassorwToken(token);
+            if (res.IsFailure)
+                return BadRequest(res.Errors);
+            return NoContent();
+        }
+
+        [HttpPatch("[action]/{token}")]
+        public async Task<IActionResult> ChangePassword(string token, RegisterUserRequest request)
+        {
+            Result res = await _authService.ChangePassword(token, request);
+            if (res.IsFailure)
+                return BadRequest(res.Errors);
+            return NoContent();
         }
     }
 }

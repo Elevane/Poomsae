@@ -6,9 +6,9 @@ using Poomsae.Server.Web.Controllers.Base;
 
 namespace Poomsae.Server.Web.Controllers
 {
-    public class KatasController : GenericController<Kata, KataRequest, KataResponse>
+    public class KatasController : GenericReferencesController<Kata, KataRequest, KataResponse>
     {
-        public KatasController(IHttpContextAccessor httpContextAccessor, IGenericService<Kata, KataRequest, KataResponse> service) : base(httpContextAccessor, service)
+        public KatasController(IHttpContextAccessor httpContextAccessor, IGenericReferencesService<Kata, KataRequest, KataResponse> service) : base(httpContextAccessor, service)
         {
         }
     }

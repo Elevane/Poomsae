@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using Poomsae.Application.Models.Dtos.Authentification;
 using Poomsae.Application.Models.Monads.Errors;
 using Poomsae.Application.Services.Authentification.Interfaces;
@@ -18,15 +19,11 @@ namespace Poomsae.Application.Services.Authentification
         private readonly IApplicationContext _context;
         private readonly IMapper _mapper;
         private readonly SecurityHelpers _securityHelpers;
-        private readonly IHttpContextAccessor _contextAccessor;
         private readonly IMailSender _mailSender;
-        private readonly ApplicationUser? _contextUser;
 
-        public AuthService(IApplicationContext context, IMapper mapper, SecurityHelpers securityHelpers, IHttpContextAccessor contextAccessor, IMailSender mailSender)
+        public AuthService(IApplicationContext context, IMapper mapper, SecurityHelpers securityHelpers, IMailSender mailSender)
         {
             _mailSender = mailSender;
-            _contextAccessor = contextAccessor;
-            _contextUser = (ApplicationUser?)_contextAccessor.HttpContext?.Items["User"];
             _securityHelpers = securityHelpers;
             _context = context;
             _mapper = mapper;
@@ -124,6 +121,46 @@ namespace Poomsae.Application.Services.Authentification
             if (user == null)
                 return Result<User>.Failure("credentials", "Impossible de trouver l'utilisateur");
             return Result<User>.Success(user);
+        }
+
+        public async Task<Result> ResetPassword(string email)
+        {
+            User user = await _context.Users.FirstAsync(user => user.Email == email);
+            if (user == null)
+                return Result.Failure("credentials", "Impossible de trouver l'utilisateur");
+            string? userToken = _securityHelpers.generateJwtToken(email);
+            if (userToken == null)
+                return Result.Failure("credentials", "Impossible de générer le token de changement de mot de passe");
+            await _mailSender.SendResetPasswordAsync(email, userToken);
+            await _context.SaveChangesAsync();
+            return Result.Success();
+        }
+
+        public async Task<Result> ValidateChangePassorwToken(string token)
+        {
+            JwtSecurityToken? userToken = _securityHelpers.ValidateToken(token);
+            if (userToken == null)
+                return Result.Failure("credentials", "Token given is not valid");
+            Claim? userMail = userToken.Claims.FirstOrDefault(x => x.Type == "email");
+            if (userMail == null || userMail.Value == null)
+                return Result.Failure("credentials", "Token given is not valid");
+            User exist = await _context.Users.FirstAsync(x => x.Email == userMail.Value);
+            return Result.Success();
+        }
+
+        public async Task<Result> ChangePassword(string token, RegisterUserRequest request)
+        {
+            JwtSecurityToken? userToken = _securityHelpers.ValidateToken(token);
+            if (userToken == null)
+                return Result.Failure("credentials", "Token given is not valid");
+            User user = await _context.Users.FirstAsync(user => user.Email == request.Email);
+            if (user == null)
+                return Result.Failure("credentials", "Impossible de trouver l'utilisateur");
+            if (!User.isValid(request.Password))
+                return Result.Failure("credentials", "Mot de passe incorrect");
+            _mapper.Map(request, user);
+            await _context.SaveChangesAsync();
+            return Result.Success();
         }
     }
 }

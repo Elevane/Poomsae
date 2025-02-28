@@ -6,9 +6,9 @@ using Poomsae.Server.Web.Controllers.Base;
 
 namespace Poomsae.Server.Web.Controllers
 {
-    public class MovementsController : GenericController<Movement, MovementRequest, MovementResponse>
+    public class MovementsController : GenericReferencesController<Movement, MovementRequest, MovementResponse>
     {
-        public MovementsController(IHttpContextAccessor httpContextAccessor, IGenericService<Movement, MovementRequest, MovementResponse> service) : base(httpContextAccessor, service)
+        public MovementsController(IHttpContextAccessor httpContextAccessor, IGenericReferencesService<Movement, MovementRequest, MovementResponse> service) : base(httpContextAccessor, service)
         {
         }
     }

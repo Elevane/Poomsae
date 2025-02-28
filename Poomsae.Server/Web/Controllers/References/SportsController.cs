@@ -6,9 +6,9 @@ using Poomsae.Server.Web.Controllers.Base;
 
 namespace Poomsae.Server.Web.Controllers.References
 {
-    public class SportsController : GenericController<Sport, SportRequest, SportResponse>
+    public class SportsController : GenericReferencesController<Sport, SportRequest, SportResponse>
     {
-        public SportsController(IHttpContextAccessor httpContextAccessor, IGenericService<Sport, SportRequest, SportResponse> service) : base(httpContextAccessor, service)
+        public SportsController(IHttpContextAccessor httpContextAccessor, IGenericReferencesService<Sport, SportRequest, SportResponse> service) : base(httpContextAccessor, service)
         {
         }
     }
