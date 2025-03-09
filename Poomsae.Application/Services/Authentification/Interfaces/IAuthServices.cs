@@ -15,5 +15,11 @@ namespace Poomsae.Application.Services.Authentification.Interfaces
         Task<Result> DeleteOrAnonymise(DeleteUserRequest request);
 
         Task<Result> ConfirmAccount(string token);
+
+        Task<Result> ResetPassword(string email);
+
+        Task<Result> ValidateChangePassorwToken(string token);
+
+        Task<Result> ChangePassword(string token, RegisterUserRequest request);
     }
 }

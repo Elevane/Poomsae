@@ -97,5 +97,7 @@ namespace Poomsae.Infrastructure.Persistence
             }
             return base.SaveChanges();
         }
+
+        public new DbSet<T> Set<T>() where T : class => base.Set<T>();
     }
 }
